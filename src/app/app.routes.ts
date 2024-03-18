@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { DashboardPageComponent } from './components/dashboard-page/dashboard-page.component';
 import { CalendarPageComponent } from './components/calendar-page/calendar-page.component';
