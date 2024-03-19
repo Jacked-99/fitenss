@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavLinksComponent } from '../nav-links/nav-links.component';
+import { ContentPageTempComponent } from '../content-page-temp/content-page-temp.component';
 
 @Component({
   selector: 'app-dashboard-page',
   standalone: true,
-  imports: [NavLinksComponent],
+  imports: [ContentPageTempComponent],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.scss',
 })
