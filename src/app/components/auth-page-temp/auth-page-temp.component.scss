@@ -1,0 +1,11 @@
+.auth-page-contnent {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 50%;
+}
+@media (min-width: 1000px) {
+  .auth-page-contnent {
+    max-width: 30%;
+  }
+}
