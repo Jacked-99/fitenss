@@ -1,0 +1,11 @@
+.main-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.main-nav-link {
+  margin: 0.5em;
+}
+.main-nav-link:last-of-type {
+  margin-right: 1em;
+}
