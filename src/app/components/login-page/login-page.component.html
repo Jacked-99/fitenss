@@ -1,9 +1,16 @@
-<mat-card>
-  <mat-card-content>
-    <h2>Login</h2>
-    <button mat-raised-button color="primary">Login</button>
-    <a routerLink="/signup"
-      ><button mat-button color="accent">Alredy have an account?</button></a
+<app-auth-page-temp title="Login">
+  <div class="login-content">
+    <button
+      mat-raised-button
+      color="primary"
+      aria-label="Login with Google button"
     >
-  </mat-card-content>
-</mat-card>
+      Login <mat-icon>login</mat-icon>
+    </button>
+    <a routerLink="/signup"
+      ><button mat-button color="accent" aria-label="Redirect to signup page ">
+        Don't have an account?
+      </button></a
+    >
+  </div>
+</app-auth-page-temp>
