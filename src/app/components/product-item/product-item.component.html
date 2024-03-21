@@ -9,6 +9,23 @@
       srcset=""
       class="product-img"
     />
-    <p>{{ productData?.desc || "" }}</p>
+    <div>
+      <span>Nutritional data</span>
+      <mat-list>
+        <mat-list-item>
+          Calories: {{ productData?.data?.calories }}
+        </mat-list-item>
+        <mat-list-item> Fat: {{ productData?.data?.fat }} </mat-list-item>
+        <mat-list-item> Carbs: {{ productData?.data?.carbs }} </mat-list-item>
+        <mat-list-item>
+          Protein: {{ productData?.data?.protein }}
+        </mat-list-item>
+        <mat-list-item> Fiber: {{ productData?.data?.fiber }} </mat-list-item>
+      </mat-list>
+    </div>
+    <div>
+      <p>Chart goes here</p>
+    </div>
   </div>
+  <p>{{ productData?.desc || "" }}</p>
 </mat-expansion-panel>
