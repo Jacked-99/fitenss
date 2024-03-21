@@ -1,8 +1,8 @@
 <app-content-page-temp>
   <p>product-base-page works!</p>
   <mat-accordion multi>
-    @for (item of fakeProducts; track $index) {
-    <app-product-item></app-product-item>
+    @for (product of fakeProducts; track $index) {
+    <app-product-item [productData]="product"></app-product-item>
     }
   </mat-accordion>
 </app-content-page-temp>
