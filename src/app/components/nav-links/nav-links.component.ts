@@ -9,14 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-nav-links',
   standalone: true,
-  imports: [
-    MatMenuModule,
-    MatButtonModule,
-    RouterModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-  ],
+  imports: [MatMenuModule, MatButtonModule, RouterModule, MatCardModule],
   templateUrl: './nav-links.component.html',
   styleUrl: './nav-links.component.scss',
 })

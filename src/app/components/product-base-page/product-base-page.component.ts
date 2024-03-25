@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ContentPageTempComponent } from '../content-page-temp/content-page-temp.component';
 import { ProductItemComponent } from '../product-item/product-item.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { Product } from '../../shared/product';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -26,7 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './product-base-page.component.html',
   styleUrl: './product-base-page.component.scss',
 })
-export class ProductBasePageComponent {
+export class ProductBasePageComponent implements OnInit {
   fakeProducts: Product[] = [
     {
       id: '11',
@@ -58,6 +63,44 @@ export class ProductBasePageComponent {
         sugar: 1,
       },
     },
+    {
+      id: '12',
+      name: 'Fake oats',
+      imgSrc:
+        'https://cdn.britannica.com/77/200377-050-4326767F/milk-splashing-glass.jpg',
+      desc: 'From the cow',
+      data: {
+        calories: 360,
+        carbs: 55,
+        fiber: 11,
+        protein: 14,
+        fat: 8,
+        sugar: 1,
+      },
+    },
   ];
-  searchTerm = new FormControl('');
+  productList!: Product[];
+  ngOnInit(): void {
+    this.productList = this.fakeProducts;
+  }
+  searchTerm = new FormControl('', Validators.minLength(1));
+  writeSearch() {
+    // if (this.searchTerm.value != null) {
+    //   this.productList = this.fakeProducts.filter((product) =>
+    //     product.name
+    //       .toLowerCase()
+    //       .includes(this.searchTerm.value!.toLowerCase())
+    //   );
+    // }
+    // console.log(this.searchTerm.value);
+  }
+  searchClick() {
+    if (this.searchTerm.value != null) {
+      this.productList = this.fakeProducts.filter((product) =>
+        product.name
+          .toLowerCase()
+          .includes(this.searchTerm.value!.toLowerCase())
+      );
+    }
+  }
 }

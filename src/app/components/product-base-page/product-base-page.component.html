@@ -1,14 +1,23 @@
 <app-content-page-temp>
   <form class="product-search-form">
-    <mat-form-field class="input">
+    <mat-form-field>
       <mat-label>Search</mat-label>
-      <input matInput [formControl]="searchTerm" />
+      <input matInput [formControl]="searchTerm" (input)="writeSearch()" />
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Search</button>
+    <button
+      class="form-button"
+      mat-raised-button
+      color="primary"
+      type="submit"
+      aria-label="search-button"
+      (click)="searchClick()"
+    >
+      Search
+    </button>
   </form>
 
   <mat-accordion multi>
-    @for (product of fakeProducts; track $index) {
+    @for (product of productList; track $index) {
     <app-product-item [productData]="product"></app-product-item>
     }
   </mat-accordion>
