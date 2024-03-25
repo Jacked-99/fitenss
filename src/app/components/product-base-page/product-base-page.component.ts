@@ -3,11 +3,26 @@ import { ContentPageTempComponent } from '../content-page-temp/content-page-temp
 import { ProductItemComponent } from '../product-item/product-item.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { Product } from '../../shared/product';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-product-base-page',
   standalone: true,
-  imports: [ContentPageTempComponent, ProductItemComponent, MatExpansionModule],
+  imports: [
+    ContentPageTempComponent,
+    ProductItemComponent,
+    MatExpansionModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+  ],
   templateUrl: './product-base-page.component.html',
   styleUrl: './product-base-page.component.scss',
 })
@@ -44,4 +59,5 @@ export class ProductBasePageComponent {
       },
     },
   ];
+  searchTerm = new FormControl('');
 }

@@ -3,11 +3,20 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-nav-links',
   standalone: true,
-  imports: [MatMenuModule, MatButtonModule, RouterModule, MatCardModule],
+  imports: [
+    MatMenuModule,
+    MatButtonModule,
+    RouterModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
   templateUrl: './nav-links.component.html',
   styleUrl: './nav-links.component.scss',
 })

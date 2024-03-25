@@ -1,5 +1,12 @@
 <app-content-page-temp>
-  <p>product-base-page works!</p>
+  <form class="product-search-form">
+    <mat-form-field class="input">
+      <mat-label>Search</mat-label>
+      <input matInput [formControl]="searchTerm" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Search</button>
+  </form>
+
   <mat-accordion multi>
     @for (product of fakeProducts; track $index) {
     <app-product-item [productData]="product"></app-product-item>
