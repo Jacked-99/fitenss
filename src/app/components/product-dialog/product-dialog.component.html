@@ -5,38 +5,79 @@
     </button>
   </mat-card-actions>
   <mat-card-content>
-    <form action="">
+    <form action="" [formGroup]="productData">
       <h3>Name</h3>
       <mat-form-field>
         <mat-label>Product name</mat-label>
-        <input matInput type="text" name="" id="" />
+        <input formControlName="name" matInput type="text" name="" id="" />
       </mat-form-field>
       <mat-divider></mat-divider>
       <h3>Nutrients (per 100g)</h3>
-      <div>
+      <div formGroupName="nutrients">
         <mat-form-field>
           <mat-label>Kcal</mat-label>
-          <input matInput type="number" name="" id="" />
+          <input
+            formControlName="calories"
+            matInput
+            type="number"
+            name=""
+            id=""
+          />
         </mat-form-field>
         <mat-form-field>
           <mat-label>Fat</mat-label>
-          <input matInput type="number" name="" id="" />
+          <input
+            formControlName="fat"
+            (change)="onNutrChange('fat')"
+            matInput
+            type="number"
+            name=""
+            id=""
+          />
         </mat-form-field>
         <mat-form-field>
           <mat-label>Carbs</mat-label>
-          <input matInput type="number" name="" id="" />
+          <input
+            formControlName="carbs"
+            (change)="onNutrChange('carbs')"
+            matInput
+            type="number"
+            name=""
+            id=""
+          />
         </mat-form-field>
         <mat-form-field>
           <mat-label>Sugars</mat-label>
-          <input matInput type="number" name="" id="" />
+          <input
+            formControlName="sugar"
+            (change)="onSugarChange()"
+            matInput
+            type="number"
+            name=""
+            id=""
+          />
         </mat-form-field>
         <mat-form-field>
           <mat-label>Fiber</mat-label>
-          <input matInput type="number" name="" id="" />
+          <input
+            formControlName="fiber"
+            (change)="onNutrChange('fiber')"
+            matInput
+            type="number"
+            name=""
+            id=""
+          />
         </mat-form-field>
         <mat-form-field>
           <mat-label>Protein</mat-label>
-          <input matInput type="number" name="" id="" />
+          <input
+            formControlName="protein"
+            (change)="onNutrChange('protein')"
+            matInput
+            type="number"
+            name=""
+            id=""
+          />
         </mat-form-field>
       </div>
       <p>Calories will be calculated automaticlly</p>
@@ -44,7 +85,13 @@
       <h3>Description</h3>
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <textarea matInput type="text" name="" id=""></textarea>
+        <textarea
+          formControlName="desc"
+          matInput
+          type="text"
+          name=""
+          id=""
+        ></textarea>
       </mat-form-field>
       <button mat-raised-button color="accent">Add product</button>
     </form>

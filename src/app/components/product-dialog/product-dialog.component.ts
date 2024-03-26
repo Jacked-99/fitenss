@@ -1,6 +1,12 @@
 import { DIALOG_DATA, DialogModule, DialogRef } from '@angular/cdk/dialog';
 import { Component, Inject, OnChanges, SimpleChanges } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Product } from '../../shared/product';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -11,6 +17,7 @@ import {
   MatCardContent,
 } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { getNutreintData } from '../utils/getNutrientValue';
 
 @Component({
   selector: 'app-product-dialog',
@@ -30,11 +37,43 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './product-dialog.component.scss',
 })
 export class ProductDialogComponent implements OnChanges {
+  productData = new FormGroup({
+    name: new FormControl('', Validators.required),
+    desc: new FormControl(''),
+    nutrients: new FormGroup({
+      calories: new FormControl(0),
+      fat: new FormControl(0),
+      protein: new FormControl(0),
+      carbs: new FormControl(0),
+      sugar: new FormControl(0),
+      fiber: new FormControl(0),
+    }),
+  });
   constructor(
     public dialogRef: DialogRef<string>,
     @Inject(DIALOG_DATA) public data: Product
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
+  }
+  onSugarChange() {
+    const current = this.productData.controls.nutrients.value.carbs || 0;
+    const sugarValue = this.productData.controls.nutrients.value.sugar || 0;
+
+    this.productData.controls.nutrients.patchValue({
+      carbs: current + sugarValue,
+    });
+  }
+  onNutrChange(name: string) {
+    let value =
+      this.productData.controls.nutrients.value[
+        name as keyof typeof this.productData.controls.nutrients.value
+      ] || 0;
+    let currentCalories =
+      this.productData.controls.nutrients.value.calories || 0;
+    let numOfCal = getNutreintData(name);
+    this.productData.controls.nutrients.patchValue({
+      calories: currentCalories + value * numOfCal,
+    });
   }
 }
