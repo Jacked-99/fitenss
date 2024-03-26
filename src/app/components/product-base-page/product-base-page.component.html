@@ -15,7 +15,11 @@
       Search
     </button>
   </form>
-
+  <div>
+    <button (click)="onDialogOpen()" mat-raised-button color="primary">
+      +
+    </button>
+  </div>
   <mat-accordion multi>
     @for (product of productList; track $index) {
     <app-product-item [productData]="product"></app-product-item>

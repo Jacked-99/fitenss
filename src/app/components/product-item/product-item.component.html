@@ -1,7 +1,10 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
-    <mat-panel-title>{{ productData?.name || "" | titlecase }}</mat-panel-title>
+    <mat-panel-title
+      ><h2>{{ productData?.name || "" | titlecase }}</h2>
+    </mat-panel-title>
   </mat-expansion-panel-header>
+
   <div>
     <img
       [src]="productData?.imgSrc || ''"
@@ -10,7 +13,8 @@
       class="product-img"
     />
     <div>
-      <span>Nutritional data</span>
+      <h3>Nutritional data</h3>
+      <mat-divider></mat-divider>
       <mat-list>
         <mat-list-item>
           Calories: {{ productData?.data?.calories }}
@@ -26,6 +30,7 @@
     <div>
       <p>Chart goes here</p>
     </div>
+    <mat-divider></mat-divider>
   </div>
   <p>{{ productData?.desc || "" }}</p>
 </mat-expansion-panel>

@@ -13,6 +13,8 @@ import {
 } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
 
 @Component({
   selector: 'app-product-base-page',
@@ -27,6 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatCardModule,
     MatButtonModule,
+    DialogModule,
   ],
   templateUrl: './product-base-page.component.html',
   styleUrl: './product-base-page.component.scss',
@@ -80,6 +83,7 @@ export class ProductBasePageComponent implements OnInit {
     },
   ];
   productList!: Product[];
+  constructor(public dialog: Dialog) {}
   ngOnInit(): void {
     this.productList = this.fakeProducts;
   }
@@ -102,5 +106,9 @@ export class ProductBasePageComponent implements OnInit {
           .includes(this.searchTerm.value!.toLowerCase())
       );
     }
+  }
+  onDialogOpen(): void {
+    // const newProductData: Product;
+    const dialogRef = this.dialog.open(ProductDialogComponent, {});
   }
 }
