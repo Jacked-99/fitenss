@@ -49,6 +49,8 @@ export class ProductDialogComponent implements OnChanges {
       fiber: new FormControl(0),
     }),
   });
+  previousSugarValue = 0;
+  previousCaloreis: { macro: string; value: number }[] = [];
   constructor(
     public dialogRef: DialogRef<string>,
     @Inject(DIALOG_DATA) public data: Product
@@ -59,21 +61,51 @@ export class ProductDialogComponent implements OnChanges {
   onSugarChange() {
     const current = this.productData.controls.nutrients.value.carbs || 0;
     const sugarValue = this.productData.controls.nutrients.value.sugar || 0;
-
-    this.productData.controls.nutrients.patchValue({
-      carbs: current + sugarValue,
-    });
+    if (current > 0) {
+      this.productData.controls.nutrients.patchValue({
+        carbs: current - this.previousSugarValue + sugarValue,
+      });
+    } else {
+      this.productData.controls.nutrients.patchValue({
+        carbs: current + sugarValue,
+      });
+    }
+    this.previousSugarValue = sugarValue;
+    this.onNutrChange('carbs');
   }
   onNutrChange(name: string) {
+    let tempResult = 0;
     let value =
       this.productData.controls.nutrients.value[
         name as keyof typeof this.productData.controls.nutrients.value
       ] || 0;
-    let currentCalories =
-      this.productData.controls.nutrients.value.calories || 0;
-    let numOfCal = getNutreintData(name);
+
+    let numOfCal = getNutreintData(name) * value;
+    // if (name == this.previousCaloreis.macro) {
+    //   this.productData.controls.nutrients.patchValue({
+    //     calories: currentCalories - this.previousCaloreis.value + numOfCal,
+    //   });
+    // } else {
+    //   this.productData.controls.nutrients.patchValue({
+    //     calories: currentCalories + numOfCal,
+    //   });
+    // }
+    if (
+      this.previousCaloreis.filter((element) => element.macro == name).length ==
+      0
+    ) {
+      this.previousCaloreis.push({ macro: name, value: numOfCal });
+    } else {
+      this.previousCaloreis.map((nutr) => {
+        nutr.macro == name ? (nutr.value = numOfCal) : nutr;
+      });
+    }
+    this.previousCaloreis.forEach((nutr) => (tempResult += nutr.value));
     this.productData.controls.nutrients.patchValue({
-      calories: currentCalories + value * numOfCal,
+      calories: tempResult,
     });
+  }
+  onAddClick() {
+    this.dialogRef.close();
   }
 }
