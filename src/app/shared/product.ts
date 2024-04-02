@@ -1,7 +1,7 @@
 export interface Product {
   id: string;
   name: string;
-  imgSrc: string;
+  imgSrc?: string;
   nutrients: {
     calories: number;
     protein: number;

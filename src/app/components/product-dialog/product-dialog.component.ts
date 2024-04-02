@@ -22,7 +22,7 @@ import {
   MatDialogContent,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { getNutreintData } from '../utils/getNutrientValue';
+import { getNutreintData } from '../../utils/getNutrientValue';
 import { ProductForm } from '../../shared/product-form';
 
 @Component({

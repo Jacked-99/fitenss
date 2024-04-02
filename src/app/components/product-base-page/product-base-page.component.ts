@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ContentPageTempComponent } from '../content-page-temp/content-page-temp.component';
 import { ProductItemComponent } from '../product-item/product-item.component';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -15,6 +15,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
+import { ProductsService } from '../../shared/products.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-base-page',
@@ -34,59 +36,18 @@ import { ProductDialogComponent } from '../product-dialog/product-dialog.compone
   templateUrl: './product-base-page.component.html',
   styleUrl: './product-base-page.component.scss',
 })
-export class ProductBasePageComponent implements OnInit {
-  fakeProducts: Product[] = [
-    {
-      id: '11',
-      name: 'oats',
-      imgSrc:
-        'https://www.hsph.harvard.edu/nutritionsource/wp-content/uploads/sites/30/2018/03/oats-701299_1920.jpg',
-      desc: 'Healthy carbs',
-      nutrients: {
-        calories: 360,
-        carbs: 55,
-        fiber: 11,
-        protein: 14,
-        fat: 8,
-        sugar: 1,
-      },
-    },
-    {
-      id: '12',
-      name: 'Milk',
-      imgSrc:
-        'https://cdn.britannica.com/77/200377-050-4326767F/milk-splashing-glass.jpg',
-      desc: 'From the cow',
-      nutrients: {
-        calories: 360,
-        carbs: 55,
-        fiber: 11,
-        protein: 14,
-        fat: 8,
-        sugar: 1,
-      },
-    },
-    {
-      id: '12',
-      name: 'Fake oats',
-      imgSrc:
-        'https://cdn.britannica.com/77/200377-050-4326767F/milk-splashing-glass.jpg',
-      desc: 'From the cow',
-      nutrients: {
-        calories: 360,
-        carbs: 55,
-        fiber: 11,
-        protein: 14,
-        fat: 8,
-        sugar: 1,
-      },
-    },
-  ];
+export class ProductBasePageComponent implements OnInit, OnDestroy {
   productList!: Product[];
-  constructor(public dialog: Dialog) {}
+  productSub!: Subscription;
+  constructor(public dialog: Dialog, private productService: ProductsService) {}
   ngOnInit(): void {
-    this.productList = this.fakeProducts;
+    this.productSub = this.productService.productList.subscribe({
+      next: (value) => {
+        this.productList = value;
+      },
+    });
   }
+
   searchTerm = new FormControl('', Validators.minLength(1));
   writeSearch() {
     // if (this.searchTerm.value != null) {
@@ -100,7 +61,7 @@ export class ProductBasePageComponent implements OnInit {
   }
   searchClick() {
     if (this.searchTerm.value != null) {
-      this.productList = this.fakeProducts.filter((product) =>
+      this.productList = this.productList.filter((product) =>
         product.name
           .toLowerCase()
           .includes(this.searchTerm.value!.toLowerCase())
@@ -108,14 +69,21 @@ export class ProductBasePageComponent implements OnInit {
     }
   }
   onDialogOpen(): void {
-    // const newProductData: Product;
-
-    const dialogRef = this.dialog.open(ProductDialogComponent, {});
-    dialogRef.closed.subscribe((result) => {
-      let id = this.productList.length;
+    const dialogRef = this.dialog.open(ProductDialogComponent, { data: {} });
+    dialogRef.closed.subscribe((result: any) => {
+      let id = this.productList.length.toString();
       if (result) {
-        this.fakeProducts.push();
+        let newProduct = {
+          id: id.toString(),
+          name: result.name,
+          nutrients: result.nutrients,
+          desc: result.desc,
+        };
+        this.productService.addProduct(newProduct);
       }
     });
+  }
+  ngOnDestroy(): void {
+    this.productSub.unsubscribe();
   }
 }
