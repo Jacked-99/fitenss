@@ -42,7 +42,7 @@ export class ProductBasePageComponent implements OnInit {
       imgSrc:
         'https://www.hsph.harvard.edu/nutritionsource/wp-content/uploads/sites/30/2018/03/oats-701299_1920.jpg',
       desc: 'Healthy carbs',
-      data: {
+      nutrients: {
         calories: 360,
         carbs: 55,
         fiber: 11,
@@ -57,7 +57,7 @@ export class ProductBasePageComponent implements OnInit {
       imgSrc:
         'https://cdn.britannica.com/77/200377-050-4326767F/milk-splashing-glass.jpg',
       desc: 'From the cow',
-      data: {
+      nutrients: {
         calories: 360,
         carbs: 55,
         fiber: 11,
@@ -72,7 +72,7 @@ export class ProductBasePageComponent implements OnInit {
       imgSrc:
         'https://cdn.britannica.com/77/200377-050-4326767F/milk-splashing-glass.jpg',
       desc: 'From the cow',
-      data: {
+      nutrients: {
         calories: 360,
         carbs: 55,
         fiber: 11,
@@ -109,6 +109,13 @@ export class ProductBasePageComponent implements OnInit {
   }
   onDialogOpen(): void {
     // const newProductData: Product;
+
     const dialogRef = this.dialog.open(ProductDialogComponent, {});
+    dialogRef.closed.subscribe((result) => {
+      let id = this.productList.length;
+      if (result) {
+        this.fakeProducts.push();
+      }
+    });
   }
 }

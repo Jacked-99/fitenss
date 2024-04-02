@@ -1,7 +1,6 @@
-export interface Product {
-  id: string;
+export interface ProductForm {
   name: string;
-  imgSrc: string;
+  imgSrc?: string;
   nutrients: {
     calories: number;
     protein: number;

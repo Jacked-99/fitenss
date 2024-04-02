@@ -16,8 +16,14 @@ import {
   MatCardActions,
   MatCardContent,
 } from '@angular/material/card';
+import {
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { getNutreintData } from '../utils/getNutrientValue';
+import { ProductForm } from '../../shared/product-form';
 
 @Component({
   selector: 'app-product-dialog',
@@ -32,6 +38,9 @@ import { getNutreintData } from '../utils/getNutrientValue';
     MatCardContent,
     MatButtonModule,
     MatCardActions,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
   ],
   templateUrl: './product-dialog.component.html',
   styleUrl: './product-dialog.component.scss',
@@ -52,7 +61,7 @@ export class ProductDialogComponent implements OnChanges {
   previousSugarValue = 0;
   previousCaloreis: { macro: string; value: number }[] = [];
   constructor(
-    public dialogRef: DialogRef<string>,
+    public dialogRef: DialogRef<any>,
     @Inject(DIALOG_DATA) public data: Product
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
@@ -106,6 +115,8 @@ export class ProductDialogComponent implements OnChanges {
     });
   }
   onAddClick() {
-    this.dialogRef.close();
+    if (this.productData.valid) {
+      this.dialogRef.close(this.productData.value);
+    }
   }
 }

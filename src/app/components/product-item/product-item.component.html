@@ -17,14 +17,18 @@
       <mat-divider></mat-divider>
       <mat-list>
         <mat-list-item>
-          Calories: {{ productData?.data?.calories }}
+          Calories: {{ productData?.nutrients?.calories }}
         </mat-list-item>
-        <mat-list-item> Fat: {{ productData?.data?.fat }} </mat-list-item>
-        <mat-list-item> Carbs: {{ productData?.data?.carbs }} </mat-list-item>
+        <mat-list-item> Fat: {{ productData?.nutrients?.fat }} </mat-list-item>
         <mat-list-item>
-          Protein: {{ productData?.data?.protein }}
+          Carbs: {{ productData?.nutrients?.carbs }}
         </mat-list-item>
-        <mat-list-item> Fiber: {{ productData?.data?.fiber }} </mat-list-item>
+        <mat-list-item>
+          Protein: {{ productData?.nutrients?.protein }}
+        </mat-list-item>
+        <mat-list-item>
+          Fiber: {{ productData?.nutrients?.fiber }}
+        </mat-list-item>
       </mat-list>
     </div>
     <div>
