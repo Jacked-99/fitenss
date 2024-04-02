@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart } from 'chart.js/auto';
 
 @Component({
   selector: 'app-chart',
@@ -13,7 +13,7 @@ export class ChartComponent implements OnInit {
   @Input() dataPoints: number[] = [];
   chart: any;
   onCreateChart() {
-    this.chart = new Chart('chartComp', {
+    this.chart = new Chart('chartEl', {
       type: 'doughnut',
       data: {
         labels: this.labels,
