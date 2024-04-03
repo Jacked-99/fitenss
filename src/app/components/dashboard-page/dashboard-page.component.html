@@ -2,6 +2,26 @@
   <h2>Your Dashboard</h2>
   <mat-divider></mat-divider>
   <h3>Current Caloric Intake</h3>
+  <ul>
+    @for (product of currentCalories ; track $index) {
+    <li>
+      @for (key of product|keyvalue ; track $index) {
+        @if (key.key == "product") {
+          <h2>{{key.value}}</h2>
+       
+        }
+        @else {
+          <li>
+            {{key.key}} {{key.value}}
+          </li>
+          
+        }
+      }
+      
+    </li>
+
+    }
+  </ul>
   <app-chart></app-chart>
   <mat-divider></mat-divider>
   <h3>Add meal</h3>
