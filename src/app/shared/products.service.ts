@@ -56,7 +56,7 @@ export class ProductsService {
   constructor() {}
 
   addProduct(productData: Product) {
-    this.productList.next([...this.productList.getValue(), productData]);
+    this.productList.next([...this.productList.value, productData]);
   }
   getProductData() {
     //fetching form db
