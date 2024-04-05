@@ -7,11 +7,21 @@ import { Intake } from '../../shared/intake';
 import { ProductsService } from '../../shared/products.service';
 import { take } from 'rxjs';
 import { Product } from '../../shared/product';
+import { MatFormField, MatInputModule } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard-dialog',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    MatCardModule,
+    MatButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatIcon,
+    MatFormField,
+  ],
   templateUrl: './dashboard-dialog.component.html',
   styleUrl: './dashboard-dialog.component.scss',
 })
