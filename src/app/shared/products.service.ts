@@ -54,7 +54,9 @@ export class ProductsService {
     },
   ]);
   constructor() {}
-
+  getProductList() {
+    return this.productList.asObservable();
+  }
   addProduct(productData: Product) {
     this.productList.next([...this.productList.value, productData]);
   }

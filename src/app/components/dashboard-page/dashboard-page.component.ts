@@ -31,15 +31,15 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   currentCalories: Intake[] = [];
   constructor(private intakeService: IntakeService, private dialog: Dialog) {}
   onDialogOpen() {
-    this.intakeService.onCaloriesAdd({
-      product: 'oats',
-      calories: 5,
-      protein: 5,
-      fat: 5,
-      carbs: 5,
-      sugar: 5,
-      fiber: 5,
-    });
+    // this.intakeService.onCaloriesAdd({
+    //   product: 'oats',
+    //   calories: 5,
+    //   protein: 5,
+    //   fat: 5,
+    //   carbs: 5,
+    //   sugar: 5,
+    //   fiber: 5,
+    // });
     console.log(this.currentCalories);
     const dialogRef = this.dialog.open(DashboardDialogComponent, { data: {} });
     dialogRef.closed.pipe().subscribe();
