@@ -1,1 +1,21 @@
-<p>dashboard-dialog works!</p>
+<mat-card>
+  <mat-card-title> Add </mat-card-title>
+  <mat-card-content>
+    <button
+      type="button"
+      mat-raised-button
+      color="primary"
+      (click)="onAddClick()"
+    >
+      Add
+    </button>
+    <button
+      type="button"
+      mat-raised-button
+      color="warn"
+      (click)="dialogRef.close()"
+    >
+      Close
+    </button>
+  </mat-card-content>
+</mat-card>

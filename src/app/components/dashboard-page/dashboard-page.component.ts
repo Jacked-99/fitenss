@@ -8,6 +8,8 @@ import { Subscription, take } from 'rxjs';
 import { Intake } from '../../shared/intake';
 import { UpperCasePipe } from '@angular/common';
 import { KeyValuePipe } from '@angular/common';
+import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
+import { DashboardDialogComponent } from '../dashboard-dialog/dashboard-dialog.component';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -19,6 +21,7 @@ import { KeyValuePipe } from '@angular/common';
     MatButtonModule,
     UpperCasePipe,
     KeyValuePipe,
+    DialogModule,
   ],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.scss',
@@ -26,7 +29,7 @@ import { KeyValuePipe } from '@angular/common';
 export class DashboardPageComponent implements OnInit, OnDestroy {
   intakeSub!: Subscription;
   currentCalories: Intake[] = [];
-  constructor(private intakeService: IntakeService) {}
+  constructor(private intakeService: IntakeService, private dialog: Dialog) {}
   onDialogOpen() {
     this.intakeService.onCaloriesAdd({
       product: 'oats',
@@ -38,6 +41,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
       fiber: 5,
     });
     console.log(this.currentCalories);
+    const dialogRef = this.dialog.open(DashboardDialogComponent, { data: {} });
+    dialogRef.closed.pipe().subscribe();
   }
   onDialogClose() {
     this.intakeService.onCaloriesRemove('oats');

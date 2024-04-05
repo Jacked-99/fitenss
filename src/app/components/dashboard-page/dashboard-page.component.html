@@ -5,16 +5,13 @@
   <ul>
     @for (product of currentCalories ; track $index) {
     <li>
+      <h2>{{product.product}}</h2>
       @for (key of product|keyvalue ; track $index) {
-        @if (key.key == "product") {
-          <h2>{{key.value}}</h2>
-       
-        }
-        @else {
+        @if (key.key != "product") {
           <li>
             {{key.key}} {{key.value}}
           </li>
-          
+       
         }
       }
       
