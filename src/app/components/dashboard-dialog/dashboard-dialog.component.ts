@@ -45,7 +45,7 @@ export class DashboardDialogComponent implements OnInit {
     Validators.required,
     Validators.minLength(1),
   ]);
-  productWeight = new FormControl(Validators.required);
+  productWeight = new FormControl(null, Validators.required);
   constructor(
     public dialogRef: DialogRef,
     @Inject(DIALOG_DATA) public data: Intake,
@@ -53,13 +53,18 @@ export class DashboardDialogComponent implements OnInit {
   ) {}
 
   onAddClick() {
-    for (let key of Object.keys(this.selectedProduct.nutrients)) {
-      this.selectedProduct.nutrients[
-        key as keyof typeof this.selectedProduct.nutrients
-      ] *= +(this.productWeight.value || 100) / 100;
+    if (
+      this.selectedProduct &&
+      this.productName.valid &&
+      this.productWeight.valid
+    ) {
+      for (let key of Object.keys(this.selectedProduct.nutrients)) {
+        this.selectedProduct.nutrients[
+          key as keyof typeof this.selectedProduct.nutrients
+        ] *= +(this.productWeight.value || 100) / 100;
+      }
+      this.dialogRef.close(this.selectedProduct);
     }
-
-    console.log(this.selectedProduct);
   }
   onSearchClick() {
     if (this.productName.value != null) {

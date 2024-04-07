@@ -42,7 +42,10 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     // });
     console.log(this.currentCalories);
     const dialogRef = this.dialog.open(DashboardDialogComponent, { data: {} });
-    dialogRef.closed.pipe().subscribe();
+    dialogRef.closed.pipe().subscribe((result: any) =>
+      //convert result data to Intake type, then add via service method
+      this.intakeService.onCaloriesAdd(result.nutrients)
+    );
   }
   onDialogClose() {
     this.intakeService.onCaloriesRemove('oats');
