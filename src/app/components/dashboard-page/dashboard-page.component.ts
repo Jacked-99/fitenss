@@ -10,6 +10,7 @@ import { UpperCasePipe } from '@angular/common';
 import { KeyValuePipe } from '@angular/common';
 import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
 import { DashboardDialogComponent } from '../dashboard-dialog/dashboard-dialog.component';
+import { Product } from '../../shared/product';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -31,21 +32,35 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   currentCalories: Intake[] = [];
   constructor(private intakeService: IntakeService, private dialog: Dialog) {}
   onDialogOpen() {
-    // this.intakeService.onCaloriesAdd({
-    //   product: 'oats',
-    //   calories: 5,
-    //   protein: 5,
-    //   fat: 5,
-    //   carbs: 5,
-    //   sugar: 5,
-    //   fiber: 5,
-    // });
-    console.log(this.currentCalories);
-    const dialogRef = this.dialog.open(DashboardDialogComponent, { data: {} });
-    dialogRef.closed.pipe().subscribe((result: any) =>
-      //convert result data to Intake type, then add via service method
-      this.intakeService.onCaloriesAdd(result.nutrients)
-    );
+    const dialogRef = this.dialog.open<Product>(DashboardDialogComponent, {
+      data: {},
+    });
+    let tempObj: Intake = {
+      product: '',
+      protein: 0,
+      sugar: 0,
+      calories: 0,
+      carbs: 0,
+      fat: 0,
+      fiber: 0,
+    };
+    dialogRef.closed.pipe().subscribe({
+      next: (result) => {
+        if (result) {
+          tempObj.product = result.name;
+          for (let key of Object.keys(tempObj)) {
+            if (
+              key != 'product' &&
+              result.nutrients[key as keyof typeof result.nutrients]
+            ) {
+              tempObj[key as keyof typeof result.nutrients] =
+                result.nutrients[key as keyof typeof result.nutrients];
+            }
+          }
+          this.intakeService.onCaloriesAdd(tempObj);
+        }
+      },
+    });
   }
   onDialogClose() {
     this.intakeService.onCaloriesRemove('oats');
