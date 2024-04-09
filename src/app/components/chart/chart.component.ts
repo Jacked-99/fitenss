@@ -12,21 +12,19 @@ export class ChartComponent implements OnInit {
   @Input() labels: string[] = [];
   @Input() dataPoints: number[] = [];
   chart: any;
+  data = { val: 10, lab: 'red' };
   onCreateChart() {
     this.chart = new Chart('chartEl', {
       type: 'doughnut',
       data: {
-        labels: this.labels,
         datasets: [
           {
-            data: [100, 200, 300],
-            backgroundColor: [
-              'rgb(255, 99, 132)',
-              'rgb(54, 162, 235)',
-              'rgb(255, 205, 86)',
-            ],
+            data: [this.data.val, 20, 30],
           },
         ],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: [this.data.lab, 'Yellow', 'Blue'],
       },
     });
   }
