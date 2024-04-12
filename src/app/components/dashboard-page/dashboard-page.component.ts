@@ -11,6 +11,7 @@ import { KeyValuePipe } from '@angular/common';
 import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
 import { DashboardDialogComponent } from '../dashboard-dialog/dashboard-dialog.component';
 import { Product } from '../../shared/product';
+import { createChartData } from '../../utils/createChartData';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -63,7 +64,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     });
   }
   onDialogClose() {
-    this.intakeService.onCaloriesRemove('oats');
+    // this.intakeService.onCaloriesRemove('oats');
+    console.log(createChartData(this.currentCalories));
   }
   getProductKeys() {
     return Object.keys(this.currentCalories[0]);

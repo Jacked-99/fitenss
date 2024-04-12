@@ -1,7 +1,12 @@
 import { Intake } from '../shared/intake';
+
+interface chartDataValues {
+  nutr: string;
+  value: number;
+}
 interface chartData {
   labels: string[];
-  values: { [key: string]: number }[];
+  values: chartDataValues[];
   totalCalories: number;
 }
 export const createChartData = (values: Intake[]): chartData => {
@@ -14,12 +19,29 @@ export const createChartData = (values: Intake[]): chartData => {
       return key.charAt(0).toUpperCase() + key.slice(1);
     });
     tempObj.totalCalories += item.calories;
-    //dodac wrzucanie wartosci do values oraz reduce żeby je sumowac
-    // for (let key of keys) {
-    //   item[key];
-    // }
-    // tempObj.values = [item[key]];
+
+    for (let key of keys) {
+      tempObj.values.push({
+        nutr: key,
+        value: +item[key as keyof typeof item],
+      });
+    }
   });
-  //   tempObj.totalCalories = values.reduce()
+
+  tempObj.values = tempObj.values.reduce(
+    (accumulator: chartDataValues[], currentValue: chartDataValues) => {
+      let existingObj = accumulator.find(
+        (val) => val.nutr == currentValue.nutr
+      );
+      if (!existingObj) {
+        accumulator.push(currentValue);
+      } else {
+        accumulator[accumulator.indexOf(existingObj)].value +=
+          currentValue.value;
+      }
+      return accumulator;
+    },
+    [] as chartDataValues[]
+  );
   return tempObj;
 };
