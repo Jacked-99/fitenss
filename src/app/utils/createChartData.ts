@@ -4,7 +4,7 @@ interface chartDataValues {
   nutr: string;
   value: number;
 }
-interface chartData {
+export interface chartData {
   labels: string[];
   values: chartDataValues[];
   totalCalories: number;

@@ -19,7 +19,10 @@
 
     }
   </ul>
-  <app-chart></app-chart>
+  @if (currentCalories.length>0) {
+    <app-chart></app-chart>
+  }
+
   <mat-divider></mat-divider>
   <h3>Add meal</h3>
   <button mat-raised-button color="primary" (click)="onDialogOpen()">+</button>

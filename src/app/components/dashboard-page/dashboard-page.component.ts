@@ -4,14 +4,15 @@ import { MatDivider } from '@angular/material/divider';
 import { ChartComponent } from '../chart/chart.component';
 import { MatButtonModule } from '@angular/material/button';
 import { IntakeService } from '../../shared/intake.service';
-import { Subscription, take } from 'rxjs';
+import { BehaviorSubject, Subscription, take } from 'rxjs';
 import { Intake } from '../../shared/intake';
 import { UpperCasePipe } from '@angular/common';
 import { KeyValuePipe } from '@angular/common';
 import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
 import { DashboardDialogComponent } from '../dashboard-dialog/dashboard-dialog.component';
 import { Product } from '../../shared/product';
-import { createChartData } from '../../utils/createChartData';
+import { chartData, createChartData } from '../../utils/createChartData';
+import { ChartService } from '../../shared/chart.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -31,7 +32,15 @@ import { createChartData } from '../../utils/createChartData';
 export class DashboardPageComponent implements OnInit, OnDestroy {
   intakeSub!: Subscription;
   currentCalories: Intake[] = [];
-  constructor(private intakeService: IntakeService, private dialog: Dialog) {}
+  chartData = new BehaviorSubject([] as chartData[]);
+  constructor(
+    private intakeService: IntakeService,
+    private dialog: Dialog,
+    private chartServ: ChartService
+  ) {}
+  getChartData() {
+    this.chartServ.setChartData(this.currentCalories);
+  }
   onDialogOpen() {
     const dialogRef = this.dialog.open<Product>(DashboardDialogComponent, {
       data: {},
@@ -60,13 +69,14 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
           }
           this.intakeService.onCaloriesAdd(tempObj);
         }
+        this.getChartData();
       },
     });
   }
   onDialogClose() {
     // this.intakeService.onCaloriesRemove('oats');
-    console.log(createChartData(this.currentCalories));
   }
+
   getProductKeys() {
     return Object.keys(this.currentCalories[0]);
   }
