@@ -24,7 +24,7 @@ export class ChartComponent implements OnInit, OnDestroy {
   @Input() chartData: chartData = {} as any;
   chart: any;
   chartSub!: Subscription;
-  colors: string[] = [];
+  colors: string[] = ['#003f5c', '#58508d', '#bc5090', '#ff6361', '#ffa600'];
   constructor(private chartService: ChartService) {}
   createBackgroundColor() {
     let colorsArr = [];
@@ -42,7 +42,7 @@ export class ChartComponent implements OnInit, OnDestroy {
   updateChart() {}
   onCreateChart() {
     if (this.chart == undefined) {
-      this.createBackgroundColor();
+      // this.createBackgroundColor();
       this.chart = new Chart('chartEl', {
         type: 'doughnut',
         data: {
@@ -65,36 +65,27 @@ export class ChartComponent implements OnInit, OnDestroy {
           // These labels appear in the legend and in the tooltips when hovering different arcs
           labels: [...this.chartData.values.map((val) => val.nutr)],
         },
+        options: {
+          plugins: {
+            legend: {
+              labels: {
+                textAlign: 'left',
+              },
+            },
+          },
+        },
       });
     } else {
-      // console.log(this.chartData);
-      // this.chart.data.datasets.forEach((element: any) => {
-      //   element.data.pop();
-      // });
-      // this.chart.data.labels.pop();
-      // this.chart.update();
       let newVal = [...this.chartData.values.map((val) => val.value)];
-      this.chart.data.datasets.forEach((element: any) => {
-        element.pop();
+      this.chart.data.datasets[0].data.forEach((element: any) => {
+        let indexVal = this.chart.data.datasets[0].data.indexOf(element);
+
+        this.chart.data.datasets[0].data.splice(indexVal, 1, newVal[indexVal]);
       });
-      // this.chart.data.labels.push(
-      //   ...this.chartData.values.map((val) => val.nutr)
-      // );
-      // this.chart.data.datasets[0].data =
-      //   this.chart.data.datasets[0].data.forEach((val: any) => {
-      //     val +
-      //       this.chartData.values[this.chart.data.datasets[0].data.indexOf(val)]
-      //         .value;
-      //   });
+
       this.chart.update();
     }
   }
-  // updateChart() {
-  //   this.chart.data.datasets.forEach((element: any) => {
-  //     element.data.push(...this.chartData.values.map((val) => val.value));
-  //   });
-  //   this.chart.update();
-  // }
   ngOnInit(): void {
     this.chartSub = this.chartService.$chartData.subscribe({
       next: (val) => {
