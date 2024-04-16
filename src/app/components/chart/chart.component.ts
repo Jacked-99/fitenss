@@ -63,7 +63,11 @@ export class ChartComponent implements OnInit, OnDestroy {
           ],
 
           // These labels appear in the legend and in the tooltips when hovering different arcs
-          labels: [...this.chartData.values.map((val) => val.nutr)],
+          labels: [
+            ...this.chartData.values.map(
+              (val) => val.nutr.charAt(0).toUpperCase() + val.nutr.slice(1)
+            ),
+          ],
         },
         options: {
           plugins: {

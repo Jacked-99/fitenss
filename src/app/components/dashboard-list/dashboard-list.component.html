@@ -1,0 +1,14 @@
+<p>dashboard-list works!</p>
+<mat-list role="list">
+  @for (product of nutrList; track $index) {
+  <h2>{{ product.product }}</h2>
+  <mat-list role="list">
+    @for (key of product|keyvalue ; track $index) { @if (key.key != "product") {
+    <mat-list-item role="listitem">
+      {{ key.key }} {{ key.value }}
+    </mat-list-item>
+    } }
+  </mat-list>
+  }
+</mat-list>
+<ul></ul>

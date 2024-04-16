@@ -1,27 +1,16 @@
 <app-content-page-temp>
   <h2>Your Dashboard</h2>
   <mat-divider></mat-divider>
-  <h3>Current Caloric Intake</h3>
-  <ul>
-    @for (product of currentCalories ; track $index) {
-    <li>
-      <h2>{{product.product}}</h2>
-      @for (key of product|keyvalue ; track $index) {
-        @if (key.key != "product") {
-          <li>
-            {{key.key}} {{key.value}}
-          </li>
-       
-        }
+  <div class="dashboard-content">
+    <div class="dashboard-content-list">
+      <h3>Current Caloric Intake</h3>
+    </div>
+    <div class="dashboard-content-chart">
+      @if (currentCalories.length>0) {
+      <app-chart></app-chart>
       }
-      
-    </li>
-
-    }
-  </ul>
-  @if (currentCalories.length>0) {
-    <app-chart></app-chart>
-  }
+    </div>
+  </div>
 
   <mat-divider></mat-divider>
   <h3>Add meal</h3>

@@ -1,0 +1,9 @@
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.dashboard-content-chart {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
