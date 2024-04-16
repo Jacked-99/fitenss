@@ -13,6 +13,7 @@ import { DashboardDialogComponent } from '../dashboard-dialog/dashboard-dialog.c
 import { Product } from '../../shared/product';
 import { chartData, createChartData } from '../../utils/createChartData';
 import { ChartService } from '../../shared/chart.service';
+import { DashboardListComponent } from '../dashboard-list/dashboard-list.component';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -25,6 +26,7 @@ import { ChartService } from '../../shared/chart.service';
     UpperCasePipe,
     KeyValuePipe,
     DialogModule,
+    DashboardListComponent,
   ],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.scss',

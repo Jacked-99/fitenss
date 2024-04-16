@@ -71,6 +71,9 @@ export class ChartComponent implements OnInit, OnDestroy {
         },
         options: {
           plugins: {
+            title: {
+              text: 'Nutrient breakdown (in grams)',
+            },
             legend: {
               labels: {
                 textAlign: 'left',

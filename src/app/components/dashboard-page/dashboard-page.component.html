@@ -4,6 +4,7 @@
   <div class="dashboard-content">
     <div class="dashboard-content-list">
       <h3>Current Caloric Intake</h3>
+      <app-dashboard-list [nutrList]="currentCalories"></app-dashboard-list>
     </div>
     <div class="dashboard-content-chart">
       @if (currentCalories.length>0) {
