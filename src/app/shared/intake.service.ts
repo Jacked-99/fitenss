@@ -11,7 +11,6 @@ export class IntakeService {
 
   onCaloriesAdd(values: Intake) {
     this._currentIntake.next([...this._currentIntake.value, values]);
-    console.log(this._currentIntake);
   }
   onCaloriesRemove(productName: string) {
     this._currentIntake

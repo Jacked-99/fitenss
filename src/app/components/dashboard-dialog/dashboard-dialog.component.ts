@@ -38,14 +38,13 @@ export class DashboardDialogComponent implements OnInit {
   productList: Product[] = [];
   searchedList: Product[] = [];
   selectedProduct!: Product;
-  selectedProductCopy!: Product;
   displayList = false;
   currentCalories = 0;
   productName = new FormControl('', [
     Validators.required,
     Validators.minLength(1),
   ]);
-  productWeight = new FormControl(null, Validators.required);
+  productWeight = new FormControl(0, Validators.required);
   constructor(
     public dialogRef: DialogRef,
     @Inject(DIALOG_DATA) public data: Intake,
@@ -58,16 +57,37 @@ export class DashboardDialogComponent implements OnInit {
       this.productName.valid &&
       this.productWeight.valid
     ) {
-      for (let key of Object.keys(this.selectedProduct.nutrients)) {
-        this.selectedProduct.nutrients[
-          key as keyof typeof this.selectedProduct.nutrients
-        ] *= +(this.productWeight.value || 100) / 100;
-      }
-      this.dialogRef.close(this.selectedProduct);
+      let newProductData = {
+        name: this.selectedProduct.name,
+        nutrients: this.selectedProduct.nutrients,
+        weight: this.productWeight.value,
+      };
+      // console.log('before ' + newProductData.nutrients);
+      // for (let key of Object.keys(newProductData.nutrients)) {
+      //   let curentValue =
+      //     newProductData.nutrients[
+      //       key as keyof typeof newProductData.nutrients
+      //     ];
+      //   console.log('current ' + curentValue);
+      //   let newValue = Math.round(
+      //     curentValue * (+(this.productWeight.value || 1) / 100)
+      //   );
+      //   console.log('new ' + newValue);
+
+      //   console.log(newProductData.nutrients);
+      //   newProductData.nutrients[key as keyof typeof newProductData.nutrients] =
+      //     newValue;
+      //   //   (newProductData.nutrients[
+      //   //     key as keyof typeof newProductData.nutrients
+      //   //   ] *
+      //   //     +(this.productWeight.value || 1)) /
+      //   //     100;
+      // }
+      this.dialogRef.close(newProductData);
     }
   }
   onSearchClick() {
-    if (this.productName.value != null) {
+    if (this.productName.value != '') {
       this.searchedList = this.productList.filter((val) =>
         val.name
           .toLowerCase()
@@ -76,20 +96,19 @@ export class DashboardDialogComponent implements OnInit {
     }
     this.displayList = true;
   }
-  onProductSelect(value: Product) {
-    this.selectedProduct = value;
+  onProductSelect(value: number) {
+    this.selectedProduct = this.productList[value];
     this.displayList = false;
   }
   onWeightChange() {
+    let productCalories = this.selectedProduct.nutrients.calories;
     this.currentCalories = Math.round(
-      this.selectedProduct.nutrients.calories *
-        (+(this.productWeight.value || 100) / 100)
+      productCalories * (+(this.productWeight.value || 1) / 100)
     );
   }
   ngOnInit(): void {
-    this.productService
-      .getProductList()
+    this.productService._productList
       .pipe(take(1))
-      .subscribe((val) => (this.productList = [...val]));
+      .subscribe({ next: (val) => (this.productList = [...val]) });
   }
 }

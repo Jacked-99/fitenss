@@ -44,7 +44,18 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.chartServ.setChartData(this.currentCalories);
   }
   onDialogOpen() {
-    const dialogRef = this.dialog.open<Product>(DashboardDialogComponent, {
+    const dialogRef = this.dialog.open<{
+      name: string;
+      nutrients: {
+        calories: number;
+        protein: number;
+        fat: number;
+        carbs: number;
+        sugar: number;
+        fiber: number;
+      };
+      weight: number;
+    }>(DashboardDialogComponent, {
       data: {},
     });
     let tempObj: Intake = {
@@ -56,7 +67,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
       fat: 0,
       fiber: 0,
     };
-    dialogRef.closed.pipe().subscribe({
+    dialogRef.closed.subscribe({
       next: (result) => {
         if (result) {
           tempObj.product = result.name;
@@ -66,7 +77,8 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
               result.nutrients[key as keyof typeof result.nutrients]
             ) {
               tempObj[key as keyof typeof result.nutrients] =
-                result.nutrients[key as keyof typeof result.nutrients];
+                result.nutrients[key as keyof typeof result.nutrients] *
+                (+(result.weight || 1) / 100);
             }
           }
           this.intakeService.onCaloriesAdd(tempObj);

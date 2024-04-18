@@ -6,7 +6,7 @@ import { Product } from './product';
   providedIn: 'root',
 })
 export class ProductsService {
-  productList = new BehaviorSubject<Product[]>([
+  private productList = new BehaviorSubject<Product[]>([
     {
       id: '11',
       name: 'oats',
@@ -53,10 +53,11 @@ export class ProductsService {
       },
     },
   ]);
+  public readonly _productList = this.productList.asObservable();
   constructor() {}
-  getProductList() {
-    return this.productList.asObservable();
-  }
+  // getProductList() {
+  //   return this.productList.asObservable();
+  // }
   addProduct(productData: Product) {
     this.productList.next([...this.productList.value, productData]);
   }

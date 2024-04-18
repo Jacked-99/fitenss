@@ -41,7 +41,7 @@ export class ProductBasePageComponent implements OnInit, OnDestroy {
   productSub!: Subscription;
   constructor(public dialog: Dialog, private productService: ProductsService) {}
   ngOnInit(): void {
-    this.productSub = this.productService.productList.subscribe({
+    this.productSub = this.productService._productList.subscribe({
       next: (value) => {
         this.productList = value;
       },

@@ -45,7 +45,7 @@ import { ProductForm } from '../../shared/product-form';
   templateUrl: './product-dialog.component.html',
   styleUrl: './product-dialog.component.scss',
 })
-export class ProductDialogComponent implements OnChanges {
+export class ProductDialogComponent {
   productData = new FormGroup({
     name: new FormControl('', Validators.required),
     desc: new FormControl(''),
@@ -64,9 +64,7 @@ export class ProductDialogComponent implements OnChanges {
     public dialogRef: DialogRef<any>,
     @Inject(DIALOG_DATA) public data: Product
   ) {}
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-  }
+
   onSugarChange() {
     const current = this.productData.controls.nutrients.value.carbs || 0;
     const sugarValue = this.productData.controls.nutrients.value.sugar || 0;

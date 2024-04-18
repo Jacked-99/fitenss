@@ -14,3 +14,9 @@ input[type="number"] {
 .dialog-desc {
   width: 100%;
 }
+.action-buttons {
+  padding: 1rem;
+  button {
+    margin-inline: 0.5rem;
+  }
+}

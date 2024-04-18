@@ -13,10 +13,10 @@ import { TitleCasePipe } from '@angular/common';
   styleUrl: './dashboard-dialog-list.component.scss',
 })
 export class DashboardDialogListComponent {
-  @Input() productList: Product[] = [];
-  @Output() SelectedProduct = new EventEmitter<Product>();
+  @Input() productList!: Product[];
+  @Output() SelectedProduct = new EventEmitter<number>();
 
   onProductClick(id: number) {
-    this.SelectedProduct.emit(this.productList[id]);
+    this.SelectedProduct.emit(id);
   }
 }

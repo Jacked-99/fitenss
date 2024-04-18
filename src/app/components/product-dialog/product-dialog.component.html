@@ -97,12 +97,22 @@
     </form>
   </mat-card-content>
 
-  <mat-dialog-actions align="end">
-    <button mat-raised-button color="warn" (click)="dialogRef.close()">
-      Close
-    </button>
-    <button mat-raised-button color="primary" (click)="onAddClick()">
+  <mat-dialog-actions align="end" class="action-buttons">
+    <button
+      mat-raised-button
+      color="primary"
+      aria-label="add product"
+      (click)="onAddClick()"
+    >
       Add product
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      aria-label="close dialog"
+      (click)="dialogRef.close()"
+    >
+      Close
     </button>
   </mat-dialog-actions>
 </mat-card>

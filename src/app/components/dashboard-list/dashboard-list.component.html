@@ -1,7 +1,15 @@
-<p>dashboard-list works!</p>
 <mat-list role="list">
   @for (product of nutrList; track $index) {
-  <h2>{{ product.product | titlecase }}</h2>
+  <div>
+    <h2>{{ product.product | titlecase }}</h2>
+    <button
+      mat-icon-button
+      color="warn"
+      (click)="onDeleteItemClick(product.product)"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
   <mat-list role="list">
     @for (key of product|keyvalue ; track $index) { @if (key.key != "product") {
     <mat-list-item role="listitem">

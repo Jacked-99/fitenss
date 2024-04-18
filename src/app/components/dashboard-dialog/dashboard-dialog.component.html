@@ -15,7 +15,9 @@
         <mat-icon>search</mat-icon>
       </button>
     </div>
-    @if (displayList) {
+    @if (productName.touched && productName.hasError("required")) {
+    <mat-error>This field is required</mat-error>
+    } @if (displayList) {
     <div>
       <app-dashboard-dialog-list
         [productList]="searchedList"
@@ -43,6 +45,9 @@
         <mat-icon>add</mat-icon>
       </button>
     </div>
+    @if (productWeight.touched && productWeight.hasError("required")) {
+    <mat-error>This field is required</mat-error>
+    }
     <div>
       <h3>Total calories</h3>
       @if (selectedProduct) {
