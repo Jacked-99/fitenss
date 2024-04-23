@@ -96,8 +96,11 @@ export class DashboardDialogComponent implements OnInit {
     }
     this.displayList = true;
   }
-  onProductSelect(value: number) {
-    this.selectedProduct = this.productList[value];
+  onProductSelect(value: string) {
+    console.log('val ' + value);
+    this.selectedProduct =
+      this.productList.find((val) => val.id == value) || ({} as any);
+    console.log(this.selectedProduct);
     this.displayList = false;
   }
   onWeightChange() {

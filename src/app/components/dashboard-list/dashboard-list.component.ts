@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { IntakeService } from '../../shared/intake.service';
+import { RoundPipe } from '../../shared/round.pipe';
 
 @Component({
   selector: 'app-dashboard-list',
@@ -17,6 +18,7 @@ import { IntakeService } from '../../shared/intake.service';
     FormsModule,
     MatIconButton,
     MatIconModule,
+    RoundPipe,
   ],
   templateUrl: './dashboard-list.component.html',
   styleUrl: './dashboard-list.component.scss',

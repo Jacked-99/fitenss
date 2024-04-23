@@ -14,9 +14,9 @@ import { TitleCasePipe } from '@angular/common';
 })
 export class DashboardDialogListComponent {
   @Input() productList!: Product[];
-  @Output() SelectedProduct = new EventEmitter<number>();
+  @Output() SelectedProduct = new EventEmitter<string>();
 
-  onProductClick(id: number) {
+  onProductClick(id: string) {
     this.SelectedProduct.emit(id);
   }
 }

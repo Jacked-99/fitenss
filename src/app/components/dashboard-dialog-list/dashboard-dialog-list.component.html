@@ -2,7 +2,7 @@
   @for (item of productList; track $index) {
   <mat-list-item role="listitem" class="list-item">
     <span>{{ item.name | titlecase }}</span>
-    <button mat-icon-button color="accent" (click)="onProductClick($index)">
+    <button mat-icon-button color="accent" (click)="onProductClick(item.id)">
       <mat-icon>add</mat-icon>
     </button>
   </mat-list-item>

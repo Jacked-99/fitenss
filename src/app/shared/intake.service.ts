@@ -10,7 +10,27 @@ export class IntakeService {
   public readonly $currentIntake = this._currentIntake.asObservable();
 
   onCaloriesAdd(values: Intake) {
-    this._currentIntake.next([...this._currentIntake.value, values]);
+    if (this._currentIntake.value.find((el) => el.product == values.product)) {
+      this._currentIntake.next(
+        this._currentIntake.value.map((val: Intake) => {
+          if (val.product == values.product) {
+            let key: keyof typeof val;
+            for (key in val) {
+              if (key != 'product') {
+                let v = +val[key];
+                v += +values[key];
+                val[key] = v;
+              }
+            }
+            return val;
+          } else {
+            return val;
+          }
+        })
+      );
+    } else {
+      this._currentIntake.next([...this._currentIntake.value, values]);
+    }
   }
   onCaloriesRemove(productName: string) {
     this._currentIntake
