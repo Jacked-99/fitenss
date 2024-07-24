@@ -1,6 +1,13 @@
 <app-content-page-temp>
   <p>calendar-page works!</p>
-  <h2>Today is {{ yearVal }} {{ monthVal }} {{ today }}</h2>
-  <button (click)="addMonth()"></button>
+  <h2>Today is {{ today }} {{ monthVal }} {{ yearVal }}</h2>
+  <div>
+    <button (click)="changeMonth(-1)" mat-icon-button type="button">
+      <mat-icon>arrow_back_ios</mat-icon></button
+    ><button (click)="changeMonth()" mat-icon-button type="button">
+      <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+  </div>
+
   <app-calendar-display [newDate]="dateVal"></app-calendar-display>
 </app-content-page-temp>
