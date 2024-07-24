@@ -1,3 +1,6 @@
 <app-content-page-temp>
   <p>calendar-page works!</p>
+  <h2>Today is {{ yearVal }} {{ monthVal }} {{ days }}</h2>
+  <button (click)="addMonth()"></button>
+  <app-calendar-display [numOfDays]="days"></app-calendar-display>
 </app-content-page-temp>

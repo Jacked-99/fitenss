@@ -1,7 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ContentPageTempComponent } from '../content-page-temp/content-page-temp.component';
 import { ProductItemComponent } from '../product-item/product-item.component';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { Product } from '../../shared/product';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -32,11 +38,13 @@ import { Subscription } from 'rxjs';
     MatCardModule,
     MatButtonModule,
     DialogModule,
+    MatAccordion,
   ],
   templateUrl: './product-base-page.component.html',
   styleUrl: './product-base-page.component.scss',
 })
 export class ProductBasePageComponent implements OnInit, OnDestroy {
+  @ViewChild(MatAccordion) accordion?: MatAccordion;
   productList!: Product[];
   productSub!: Subscription;
   constructor(public dialog: Dialog, private productService: ProductsService) {}
@@ -83,6 +91,7 @@ export class ProductBasePageComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   ngOnDestroy(): void {
     this.productSub.unsubscribe();
   }

@@ -7,6 +7,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { IntakeService } from '../../shared/intake.service';
 import { RoundPipe } from '../../shared/round.pipe';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-dashboard-list',
@@ -19,6 +20,7 @@ import { RoundPipe } from '../../shared/round.pipe';
     MatIconButton,
     MatIconModule,
     RoundPipe,
+    MatExpansionModule,
   ],
   templateUrl: './dashboard-list.component.html',
   styleUrl: './dashboard-list.component.scss',
@@ -26,7 +28,7 @@ import { RoundPipe } from '../../shared/round.pipe';
 export class DashboardListComponent {
   constructor(private intake: IntakeService) {}
   @Input() nutrList: Intake[] = [];
-  caloriesVal = 0;
+  closedState = true;
   onDeleteItemClick(name: string) {
     this.intake.onCaloriesRemove(name);
   }

@@ -24,6 +24,14 @@
     >
       Add new product
     </button>
+    <button
+      (click)="accordion?.closeAll()"
+      aria-label="collapse all tabs"
+      mat-raised-button
+      color="accent"
+    >
+      Collapse all
+    </button>
   </div>
   <mat-accordion multi>
     @for (product of productList; track $index) {

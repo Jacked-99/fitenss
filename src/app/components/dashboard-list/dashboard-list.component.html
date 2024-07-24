@@ -1,22 +1,35 @@
-<mat-list role="list">
-  @for (product of nutrList; track $index) {
-  <div class="list-product-head">
-    <h2>{{ product.product | titlecase }}</h2>
-    <button
-      mat-icon-button
-      color="warn"
-      (click)="onDeleteItemClick(product.product)"
-    >
-      <mat-icon>delete</mat-icon>
-    </button>
-  </div>
+<mat-accordion>
   <mat-list role="list">
-    @for (key of product|keyvalue ; track $index) { @if (key.key != "product") {
-    <mat-list-item role="listitem">
-      {{ key.key | titlecase }}: {{ +key.value | round }}
-    </mat-list-item>
-    } }
+    @for (product of nutrList; track $index) {
+    <mat-expansion-panel
+      (opened)="closedState = false"
+      (closed)="closedState = true"
+    >
+      <mat-expansion-panel-header>
+        <div class="list-product-head">
+          <h2>{{ product.product | titlecase }}</h2>
+          <button
+            aria-label="delete product"
+            mat-icon-button
+            color="warn"
+            (click)="onDeleteItemClick(product.product)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+          @if (closedState) {
+          <p>Calories: {{ +product.calories | round }}</p>
+          }
+        </div>
+      </mat-expansion-panel-header>
+      <mat-list role="list">
+        @for (key of product|keyvalue ; track $index) { @if (key.key !=
+        "product") {
+        <mat-list-item role="listitem">
+          {{ key.key | titlecase }}: {{ +key.value | round }}
+        </mat-list-item>
+        } }
+      </mat-list>
+    </mat-expansion-panel>
+    }
   </mat-list>
-  }
-</mat-list>
-<ul></ul>
+</mat-accordion>
