@@ -10,10 +10,11 @@ import { CalendarDisplayComponent } from '../calendar-display/calendar-display.c
   styleUrl: './calendar-page.component.scss',
 })
 export class CalendarPageComponent {
-  dateVal = new Date();
+  dateVal = new Date(new Date().getFullYear(), new Date().getMonth(), 0);
   monthVal = this.dateVal.getMonth() + 1;
   yearVal = this.dateVal.getFullYear();
-  days = this.dateVal.getDate();
+
+  today = new Date().getDate();
 
   addMonth() {
     let newMonth = (this.monthVal += 1);
@@ -22,7 +23,10 @@ export class CalendarPageComponent {
       this.yearVal += 1;
     }
     const newDate = new Date(this.yearVal, newMonth, 0);
-    this.monthVal = newMonth;
-    this.days = newDate.getDate();
+    // this.monthVal = newMonth;
+    // this.days = newDate.getDate();
+    this.dateVal = newDate;
+
+    console.log(this.dateVal.getDate());
   }
 }

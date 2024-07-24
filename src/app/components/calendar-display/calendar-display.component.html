@@ -1,6 +1,10 @@
 <p>calendar-display works!</p>
 <div class="grid-base">
   @for (day of upadteArr(); track $index) {
-  <p class="grid-element">{{ day }}</p>
+  <p class="grid-element">
+    <span [ngClass]="day == today && checkToday() ? 'grid-today' : ''">{{
+      day
+    }}</span>
+  </p>
   }
 </div>
