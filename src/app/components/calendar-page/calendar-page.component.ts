@@ -20,7 +20,7 @@ export class CalendarPageComponent {
   dateVal = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
   monthVal = this.dateVal.getMonth() + 1;
   yearVal = this.dateVal.getFullYear();
-
+  monthString = this.dateVal.toLocaleString('defaul', { month: 'long' });
   today = new Date().getDate();
 
   changeMonth(number = 1) {
@@ -33,5 +33,6 @@ export class CalendarPageComponent {
     this.monthVal = newMonth;
 
     this.dateVal = newDate;
+    this.monthString = this.dateVal.toLocaleString('defaul', { month: 'long' });
   }
 }

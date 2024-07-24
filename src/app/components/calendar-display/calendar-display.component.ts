@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+import { NgClass, TitleCasePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import {
   trigger,
@@ -13,7 +13,7 @@ import {
 @Component({
   selector: 'app-calendar-display',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, TitleCasePipe],
   templateUrl: './calendar-display.component.html',
   styleUrl: './calendar-display.component.scss',
   animations: [
@@ -35,6 +35,7 @@ import {
 })
 export class CalendarDisplayComponent {
   @Input() newDate: Date = new Date();
+  @Input() monthName = '';
   numOfDays = 0;
   today = new Date().getDate();
   month = this.newDate.getMonth() + 1;
