@@ -1,11 +1,24 @@
 <p>calendar-display works!</p>
 <h1>{{ monthName | titlecase }}</h1>
-<div class="grid-base" [@listAnimation]="upadteArr()">
+<mat-grid-list
+  class="grid-base"
+  [@listAnimation]="upadteArr()"
+  cols="7"
+  [rowHeight]="isMobile ? '1:2' : ''"
+>
   @for (day of upadteArr(); track $index) {
-  <p class="grid-element">
-    <span [ngClass]="day == today && checkToday() ? 'grid-today' : ''">{{
-      day
-    }}</span>
-  </p>
+  <mat-grid-tile>
+    <mat-grid-tile-header>
+      <p class="grid-element">
+        <span [ngClass]="day == today && checkToday() ? 'grid-today' : ''">{{
+          day
+        }}</span>
+      </p>
+    </mat-grid-tile-header>
+    <div class="grid-element-content">
+      <p class="grid-element-text">Calories: 3455</p>
+      <p class="grid-element-text">Weight: 75</p>
+    </div>
+  </mat-grid-tile>
   }
-</div>
+</mat-grid-list>

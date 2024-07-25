@@ -1,3 +1,4 @@
+@if (hideSideMenu) {
 <nav>
   <mat-card>
     <mat-card-content class="main-nav">
@@ -18,3 +19,44 @@
     </mat-card-content>
   </mat-card>
 </nav>
+} @else {
+
+<mat-sidenav-container class="side-nav-main">
+  <mat-sidenav #drawer mode="over" class="side-nav">
+    <div class="side-nav-content">
+      <mat-nav-list class="side-nav-list">
+        <a mat-list-item routerLink="" class="main-nav-link"
+          ><button mat-raised-button color="primary">Dashboard</button></a
+        >
+        <a mat-list-item routerLink="/calendar" class="main-nav-link"
+          ><button mat-raised-button color="primary">Calendar</button></a
+        >
+        <a mat-list-item routerLink="/products" class="main-nav-link"
+          ><button mat-raised-button color="primary">Products</button></a
+        >
+        <a mat-list-item routerLink="/login" class="main-nav-link"
+          ><button mat-raised-button color="primary">Login</button></a
+        >
+      </mat-nav-list>
+      <button
+        style="margin-right: 1rem"
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="drawer.toggle()"
+      >
+        Close
+      </button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <button (click)="drawer.toggle()" mat-raised-button color="primary">
+        Menu
+      </button>
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+}

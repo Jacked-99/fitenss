@@ -1,6 +1,15 @@
-.grid-base {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+// .grid-base {
+//   display: grid;
+//   grid-template-columns: repeat(7, 1fr);
+// }
+mat-grid-list {
+  background-color: #e4e4e4;
+}
+mat-grid-tile {
+  background-color: #ffffff;
+}
+.grid-element-text {
+  display: block;
 }
 .grid-today {
   background-color: purple;
@@ -13,4 +22,8 @@
 }
 .hidden {
   opacity: 0;
+}
+.grid-element-content {
+  display: flex;
+  flex-direction: column;
 }

@@ -1,5 +1,5 @@
 import { NgClass, TitleCasePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   trigger,
   style,
@@ -9,11 +9,13 @@ import {
   stagger,
   state,
 } from '@angular/animations';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-calendar-display',
   standalone: true,
-  imports: [NgClass, TitleCasePipe],
+  imports: [NgClass, TitleCasePipe, MatGridListModule],
   templateUrl: './calendar-display.component.html',
   styleUrl: './calendar-display.component.scss',
   animations: [
@@ -29,17 +31,18 @@ import {
           ]),
         ]),
       ]),
-      transition('hidden => visible', [animate('0.1s')]),
+      transition('hidden => visible', [animate('0.5s')]),
     ]),
   ],
 })
-export class CalendarDisplayComponent {
+export class CalendarDisplayComponent implements OnInit {
   @Input() newDate: Date = new Date();
   @Input() monthName = '';
+  isMobile = false;
   numOfDays = 0;
   today = new Date().getDate();
   month = this.newDate.getMonth() + 1;
-
+  constructor(private breakpoint: BreakpointObserver) {}
   upadteArr(): number[] {
     this.numOfDays = this.newDate.getDate();
     return Array(this.numOfDays)
@@ -48,7 +51,7 @@ export class CalendarDisplayComponent {
   }
   checkToday() {
     let todayDate = new Date();
-    this.month = todayDate.getMonth() + 1;
+
     if (
       todayDate.getFullYear() == this.newDate.getFullYear() &&
       todayDate.getMonth() + 1 == this.newDate.getMonth() + 1
@@ -57,5 +60,12 @@ export class CalendarDisplayComponent {
     } else {
       return false;
     }
+  }
+  ngOnInit(): void {
+    this.breakpoint
+      .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
+      .subscribe((result) =>
+        result.matches ? (this.isMobile = true) : (this.isMobile = false)
+      );
   }
 }
