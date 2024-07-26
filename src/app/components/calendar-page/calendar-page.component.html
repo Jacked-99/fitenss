@@ -1,26 +1,9 @@
 <app-content-page-temp>
-  <p>calendar-page works!</p>
-  <h2>Today is {{ today }} {{ monthVal }} {{ yearVal }}</h2>
-  <div>
-    <button
-      class="calendar-button"
-      (click)="changeMonth(-1)"
-      mat-icon-button
-      type="button"
-    >
-      <mat-icon>arrow_back_ios</mat-icon></button
-    ><button
-      class="calendar-button"
-      (click)="changeMonth()"
-      mat-icon-button
-      type="button"
-    >
-      <mat-icon>arrow_forward_ios</mat-icon>
-    </button>
-  </div>
+  <h1>Today is {{ today }} {{ monthVal }} {{ yearVal }}</h1>
 
   <app-calendar-display
     [newDate]="dateVal"
     [monthName]="monthString"
+    (changeMonth)="changeMonth($event)"
   ></app-calendar-display>
 </app-content-page-temp>

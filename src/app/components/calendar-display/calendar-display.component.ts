@@ -1,5 +1,5 @@
 import { NgClass, TitleCasePipe } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   trigger,
   style,
@@ -11,11 +11,19 @@ import {
 } from '@angular/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-calendar-display',
   standalone: true,
-  imports: [NgClass, TitleCasePipe, MatGridListModule],
+  imports: [
+    NgClass,
+    TitleCasePipe,
+    MatGridListModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
   templateUrl: './calendar-display.component.html',
   styleUrl: './calendar-display.component.scss',
   animations: [
@@ -38,6 +46,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 export class CalendarDisplayComponent implements OnInit {
   @Input() newDate: Date = new Date();
   @Input() monthName = '';
+  @Output() changeMonth = new EventEmitter<number>();
   isMobile = false;
   numOfDays = 0;
   today = new Date().getDate();
@@ -60,6 +69,9 @@ export class CalendarDisplayComponent implements OnInit {
     } else {
       return false;
     }
+  }
+  onMonthChange(value: number) {
+    this.changeMonth.emit(value);
   }
   ngOnInit(): void {
     this.breakpoint

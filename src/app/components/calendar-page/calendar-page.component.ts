@@ -20,7 +20,7 @@ export class CalendarPageComponent {
   dateVal = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
   monthVal = this.dateVal.getMonth() + 1;
   yearVal = this.dateVal.getFullYear();
-  monthString = this.dateVal.toLocaleString('defaul', { month: 'long' });
+  monthString = this.dateVal.toLocaleString('default', { month: 'long' });
   today = new Date().getDate();
 
   changeMonth(number = 1) {
@@ -28,11 +28,16 @@ export class CalendarPageComponent {
     if (this.monthVal > 12) {
       newMonth = 1;
       this.yearVal += 1;
+    } else if (this.monthVal < 1) {
+      newMonth = 12;
+      this.yearVal -= 1;
     }
     const newDate = new Date(this.yearVal, newMonth, 0);
     this.monthVal = newMonth;
 
     this.dateVal = newDate;
-    this.monthString = this.dateVal.toLocaleString('defaul', { month: 'long' });
+    this.monthString = this.dateVal.toLocaleString('default', {
+      month: 'long',
+    });
   }
 }
