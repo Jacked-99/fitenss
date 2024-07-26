@@ -20,11 +20,11 @@ import { TitleCasePipe } from '@angular/common';
 })
 export class CalendarPageComponent {
   dateVal = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
-  currentDate = this.dateVal;
   monthVal = this.dateVal.getMonth() + 1;
   yearVal = this.dateVal.getFullYear();
   monthString = this.dateVal.toLocaleString('default', { month: 'long' });
-  today = new Date().getDate();
+  currentDate = new Date();
+  today = this.currentDate.getDate();
 
   changeMonth(number = 1) {
     let newMonth = (this.monthVal += number);

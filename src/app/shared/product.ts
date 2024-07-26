@@ -10,5 +10,5 @@ export interface Product {
     sugar: number;
     fiber: number;
   };
-  desc: string;
+  desc?: string;
 }

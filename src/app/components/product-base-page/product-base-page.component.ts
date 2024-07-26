@@ -54,6 +54,7 @@ export class ProductBasePageComponent implements OnInit, OnDestroy {
         this.productList = value;
       },
     });
+    this.productService.getProductData();
   }
 
   searchTerm = new FormControl('', Validators.minLength(1));
