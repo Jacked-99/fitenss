@@ -1,9 +1,24 @@
 <app-content-page-temp>
-  <h1>Today is {{ today }} {{ monthVal }} {{ yearVal }}</h1>
+  <h1>Today is {{ currentDate.toLocaleDateString() }}</h1>
+  <div class="calendar-buttons">
+    <button
+      class="calendar-button"
+      (click)="changeMonth(-1)"
+      mat-icon-button
+      type="button"
+    >
+      <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+    <h2>{{ monthString | titlecase }}</h2>
+    <button
+      class="calendar-button"
+      (click)="changeMonth(1)"
+      mat-icon-button
+      type="button"
+    >
+      <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+  </div>
 
-  <app-calendar-display
-    [newDate]="dateVal"
-    [monthName]="monthString"
-    (changeMonth)="changeMonth($event)"
-  ></app-calendar-display>
+  <app-calendar-display [newDate]="dateVal"></app-calendar-display>
 </app-content-page-temp>

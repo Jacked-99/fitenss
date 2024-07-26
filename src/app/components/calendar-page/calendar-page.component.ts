@@ -3,6 +3,7 @@ import { ContentPageTempComponent } from '../content-page-temp/content-page-temp
 import { CalendarDisplayComponent } from '../calendar-display/calendar-display.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-calendar-page',
@@ -12,12 +13,14 @@ import { MatIconButton } from '@angular/material/button';
     CalendarDisplayComponent,
     MatIcon,
     MatIconButton,
+    TitleCasePipe,
   ],
   templateUrl: './calendar-page.component.html',
   styleUrl: './calendar-page.component.scss',
 })
 export class CalendarPageComponent {
   dateVal = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0);
+  currentDate = this.dateVal;
   monthVal = this.dateVal.getMonth() + 1;
   yearVal = this.dateVal.getFullYear();
   monthString = this.dateVal.toLocaleString('default', { month: 'long' });

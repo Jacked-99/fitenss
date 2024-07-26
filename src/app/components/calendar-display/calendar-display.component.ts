@@ -46,7 +46,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class CalendarDisplayComponent implements OnInit {
   @Input() newDate: Date = new Date();
   @Input() monthName = '';
-  @Output() changeMonth = new EventEmitter<number>();
+
   isMobile = false;
   numOfDays = 0;
   today = new Date().getDate();
@@ -69,9 +69,6 @@ export class CalendarDisplayComponent implements OnInit {
     } else {
       return false;
     }
-  }
-  onMonthChange(value: number) {
-    this.changeMonth.emit(value);
   }
   ngOnInit(): void {
     this.breakpoint

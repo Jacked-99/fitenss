@@ -1,22 +1,3 @@
-<div class="calendar-buttons">
-  <button
-    class="calendar-button"
-    (click)="onMonthChange(-1)"
-    mat-icon-button
-    type="button"
-  >
-    <mat-icon>arrow_back_ios</mat-icon>
-  </button>
-  <h2>{{ monthName | titlecase }}</h2>
-  <button
-    class="calendar-button"
-    (click)="onMonthChange(1)"
-    mat-icon-button
-    type="button"
-  >
-    <mat-icon>arrow_forward_ios</mat-icon>
-  </button>
-</div>
 <mat-grid-list
   class="grid-base"
   [@listAnimation]="upadteArr()"
