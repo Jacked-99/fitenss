@@ -23,6 +23,7 @@ import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
 import { ProductsService } from '../../shared/products.service';
 import { Subscription } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product-base-page',
@@ -39,6 +40,7 @@ import { Subscription } from 'rxjs';
     MatButtonModule,
     DialogModule,
     MatAccordion,
+    MatIconModule,
   ],
   templateUrl: './product-base-page.component.html',
   styleUrl: './product-base-page.component.scss',

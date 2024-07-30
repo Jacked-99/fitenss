@@ -29,16 +29,3 @@ mat-grid-tile-header.grid-today {
 .day {
   font-size: x-large;
 }
-.calendar-buttons {
-  display: grid;
-  grid-template-columns: 0fr 0.1fr 0fr;
-  align-items: center;
-  justify-items: center;
-  transform: translateX(40%);
-}
-.calendar-button {
-  opacity: 0.2;
-}
-.calendar-button:hover {
-  opacity: 1;
-}

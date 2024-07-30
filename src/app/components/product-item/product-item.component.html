@@ -1,7 +1,11 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title
-      ><h2>{{ productData?.name || "" | titlecase }}</h2>
+      ><a [routerLink]="['./', productData?.name]"
+        ><h2>
+          {{ productData?.name || "" | titlecase }}
+        </h2>
+      </a>
     </mat-panel-title>
   </mat-expansion-panel-header>
 
