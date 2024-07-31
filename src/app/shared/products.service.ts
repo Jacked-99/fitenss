@@ -1,7 +1,14 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, map, take } from 'rxjs';
 import { Product } from './product';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
+const baseUrl =
+  'https://fitness-page-base-default-rtdb.europe-west1.firebasedatabase.app/Products.json';
+
+type ValType = {
+  [key: string]: Product;
+};
 @Injectable({
   providedIn: 'root',
 })
@@ -54,30 +61,46 @@ export class ProductsService {
     // },
   ]);
   public readonly _productList = this.productList.asObservable();
-  constructor() {}
+  constructor(private http: HttpClient) {
+    //temp
+    //przepisac korzystajac z http clinet i metod
+  }
+
   // getProductList() {
   //   return this.productList.asObservable();
   // }
+
   addProduct(productData: Product) {
     this.productList.next([...this.productList.value, productData]);
     this.setProducts();
   }
-  async setProducts() {
-    const request = await fetch(
-      'https://fitness-page-base-default-rtdb.europe-west1.firebasedatabase.app/Products.json',
-      { method: 'PUT', body: JSON.stringify(this.productList.value) }
-    );
-    const response = await request.json();
-    console.log(response);
+  setProducts() {
+    this.http
+      .put(baseUrl, JSON.stringify(this.productList.value))
+      .pipe(take(1))
+      .subscribe({ next: (val) => console.log(val) });
+    // const request = await fetch(
+    //   'https://fitness-page-base-default-rtdb.europe-west1.firebasedatabase.app/Products.json',
+    //   { method: 'PUT', body: JSON.stringify(this.productList.value) }
+    // );
+    // const response = await request.json();
+    // console.log(response);
   }
-  async getProductData() {
-    const request = await fetch(
-      'https://fitness-page-base-default-rtdb.europe-west1.firebasedatabase.app/Products.json',
-      { method: 'GET' }
+
+  getProductData() {
+    this.http
+      .get<Product[]>(baseUrl)
+      .pipe(take(1))
+      .subscribe({
+        next: (val) => {
+          this.productList.next(val);
+        },
+      });
+  }
+  getProduct(id: string) {
+    return this.http.get<Product>(
+      'https://fitness-page-base-default-rtdb.europe-west1.firebasedatabase.app/Products' +
+        `/${id}.json`
     );
-    const data = await request.json();
-    console.log(data);
-    this.productList.next(data);
-    //fetching form db
   }
 }

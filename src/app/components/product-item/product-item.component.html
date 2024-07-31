@@ -1,7 +1,7 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title
-      ><a [routerLink]="['./', productData?.name]"
+      ><a [routerLink]="['./', productData?.name]" class="product-link"
         ><h2>
           {{ productData?.name || "" | titlecase }}
         </h2>
@@ -34,9 +34,6 @@
           Fiber: {{ productData?.nutrients?.fiber }}
         </mat-list-item>
       </mat-list>
-    </div>
-    <div>
-      <p>Chart goes here</p>
     </div>
     <mat-divider></mat-divider>
   </div>

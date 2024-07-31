@@ -51,12 +51,13 @@ export class ProductBasePageComponent implements OnInit, OnDestroy {
   productSub!: Subscription;
   constructor(public dialog: Dialog, private productService: ProductsService) {}
   ngOnInit(): void {
+    this.productService.getProductData();
     this.productSub = this.productService._productList.subscribe({
       next: (value) => {
+        console.log(value);
         this.productList = value;
       },
     });
-    this.productService.getProductData();
   }
 
   searchTerm = new FormControl('', Validators.minLength(1));
