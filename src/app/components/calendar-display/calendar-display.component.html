@@ -7,16 +7,28 @@
   @for (day of upadteArr(); track $index) {
   <mat-grid-tile>
     <mat-grid-tile-header
-      [ngClass]="day == today && checkToday() ? 'grid-today' : ''"
+      [ngClass]="[
+        day == today && checkToday() ? 'grid-today' : '',
+        isMobile ? ' isMobile' : ''
+      ]"
     >
       <p class="grid-element">
         <span
-          [ngClass]="day == today && checkToday() ? 'day grid-today' : 'day '"
+          [ngClass]="[
+            day == today && checkToday() ? 'day grid-today' : 'day ',
+            isMobile ? ' isMobile' : ''
+          ]"
           >{{ day }}</span
         >
       </p>
     </mat-grid-tile-header>
-    <div class="grid-element-content">
+    <div
+      [class]="
+        'grid-element-content' + isMobile
+          ? 'grid-element-content isMobile'
+          : 'grid-element-content'
+      "
+    >
       <p class="grid-element-text">Calories: 3455</p>
       <p class="grid-element-text">Weight: 75</p>
     </div>

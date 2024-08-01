@@ -1,9 +1,8 @@
 .calendar-buttons {
-  display: grid;
-  grid-template-columns: 0fr 0.1fr 0fr;
+  display: flex;
+  width: 100%;
   align-items: center;
   justify-items: center;
-  transform: translateX(40%);
 }
 .calendar-button {
   opacity: 0.2;

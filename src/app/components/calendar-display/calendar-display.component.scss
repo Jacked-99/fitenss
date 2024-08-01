@@ -23,9 +23,14 @@ mat-grid-tile-header.grid-today {
   opacity: 0;
 }
 .grid-element-content {
-  display: flex;
+  margin-top: 2rem;
+  display: inline-block;
   flex-direction: column;
+  width: max-content;
 }
 .day {
   font-size: x-large;
+}
+.isMobile {
+  font-size: small;
 }

@@ -46,8 +46,8 @@ import { MatButtonModule } from '@angular/material/button';
 export class CalendarDisplayComponent implements OnInit {
   @Input() newDate: Date = new Date();
   @Input() monthName = '';
+  @Input() isMobile = false;
 
-  isMobile = false;
   numOfDays = 0;
   today = new Date().getDate();
   month = this.newDate.getMonth() + 1;

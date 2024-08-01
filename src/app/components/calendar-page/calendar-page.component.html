@@ -1,6 +1,9 @@
 <app-content-page-temp>
+  @if (!isMobile) {
   <h1>Today is {{ currentDate.toLocaleDateString() }}</h1>
-  <div class="calendar-buttons">
+  }
+
+  <div [class]="'calendar-buttons' + isMobile ? ' isMobile' : ''">
     <button
       class="calendar-button"
       (click)="changeMonth(-1)"
@@ -20,5 +23,8 @@
     </button>
   </div>
 
-  <app-calendar-display [newDate]="dateVal"></app-calendar-display>
+  <app-calendar-display
+    [isMobile]="isMobile"
+    [newDate]="dateVal"
+  ></app-calendar-display>
 </app-content-page-temp>
