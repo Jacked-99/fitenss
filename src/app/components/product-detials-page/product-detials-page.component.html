@@ -31,7 +31,13 @@
         </mat-list>
       </div>
       <div class="product-details-content-chart">
+        @if (isMobile) {
+        <app-toggable-section-temp [title]="'Nutrition chart'">
+          <app-chart></app-chart>
+        </app-toggable-section-temp>
+        } @else {
         <app-chart></app-chart>
+        }
       </div>
     </div>
     <mat-divider></mat-divider>

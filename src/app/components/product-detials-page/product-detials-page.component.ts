@@ -9,6 +9,7 @@ import { Intake } from '../../shared/intake';
 import { ContentPageTempComponent } from '../content-page-temp/content-page-temp.component';
 import { TitleCasePipe } from '@angular/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { ToggableSectionTempComponent } from '../toggable-section-temp/toggable-section-temp.component';
 
 @Component({
   selector: 'app-product-detials-page',
@@ -18,6 +19,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     ChartComponent,
     ContentPageTempComponent,
     TitleCasePipe,
+    ToggableSectionTempComponent,
   ],
   templateUrl: './product-detials-page.component.html',
   styleUrl: './product-detials-page.component.scss',
