@@ -1,31 +1,40 @@
-<p>product-detials-page works!</p>
-<p>ID {{ id }}</p>
-<div>
-  <img
-    [src]="productData?.imgSrc || ''"
-    [alt]="productData?.name + '_picture' || ''"
-    srcset=""
-    class="product-img"
-  />
+<app-content-page-temp>
+  <h2>{{ productData?.name | titlecase }}</h2>
+  <p>ID {{ id }}</p>
   <div>
-    <h3>Nutritional data</h3>
+    <img
+      [src]="productData?.imgSrc || ''"
+      [alt]="productData?.name + '_picture' || ''"
+      srcset=""
+      class="product-img"
+    />
+    <div class="product-details-content">
+      <div>
+        <h3>Nutritional data</h3>
+        <mat-divider></mat-divider>
+        <mat-list>
+          <mat-list-item>
+            Calories: {{ productData?.nutrients?.calories }}
+          </mat-list-item>
+          <mat-list-item>
+            Fat: {{ productData?.nutrients?.fat }}
+          </mat-list-item>
+          <mat-list-item>
+            Carbs: {{ productData?.nutrients?.carbs }}
+          </mat-list-item>
+          <mat-list-item>
+            Protein: {{ productData?.nutrients?.protein }}
+          </mat-list-item>
+          <mat-list-item>
+            Fiber: {{ productData?.nutrients?.fiber }}
+          </mat-list-item>
+        </mat-list>
+      </div>
+      <div class="product-details-content-chart">
+        <app-chart></app-chart>
+      </div>
+    </div>
     <mat-divider></mat-divider>
-    <mat-list>
-      <mat-list-item>
-        Calories: {{ productData?.nutrients?.calories }}
-      </mat-list-item>
-      <mat-list-item> Fat: {{ productData?.nutrients?.fat }} </mat-list-item>
-      <mat-list-item>
-        Carbs: {{ productData?.nutrients?.carbs }}
-      </mat-list-item>
-      <mat-list-item>
-        Protein: {{ productData?.nutrients?.protein }}
-      </mat-list-item>
-      <mat-list-item>
-        Fiber: {{ productData?.nutrients?.fiber }}
-      </mat-list-item>
-    </mat-list>
   </div>
-  <mat-divider></mat-divider>
-</div>
-<p>{{ productData?.desc || "" }}</p>
+  <p>{{ productData?.desc || "" }}</p>
+</app-content-page-temp>

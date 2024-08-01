@@ -1,0 +1,11 @@
+.product-details-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-content: center;
+  justify-content: center;
+}
+.product-details-content-chart {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
