@@ -8,7 +8,7 @@
       srcset=""
       class="product-img"
     />
-    <div class="product-details-content">
+    <div [class]="'product-details-content' + isMobile ? ' isMobile' : ''">
       <div>
         <h3>Nutritional data</h3>
         <mat-divider></mat-divider>

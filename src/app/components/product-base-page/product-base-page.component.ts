@@ -54,7 +54,6 @@ export class ProductBasePageComponent implements OnInit, OnDestroy {
     this.productService.getProductData();
     this.productSub = this.productService._productList.subscribe({
       next: (value) => {
-        console.log(value);
         this.productList = value;
       },
     });

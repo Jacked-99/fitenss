@@ -8,6 +8,7 @@ import { ChartService } from '../../shared/chart.service';
 import { Intake } from '../../shared/intake';
 import { ContentPageTempComponent } from '../content-page-temp/content-page-temp.component';
 import { TitleCasePipe } from '@angular/common';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-product-detials-page',
@@ -23,13 +24,14 @@ import { TitleCasePipe } from '@angular/common';
 })
 export class ProductDetialsPageComponent implements OnInit, OnDestroy {
   @Input() id?: string;
-
+  isMobile = false;
   productData?: Product;
   productSub?: Subscription;
 
   constructor(
     private prodeuctService: ProductsService,
-    private chartService: ChartService
+    private chartService: ChartService,
+    private breakpoint: BreakpointObserver
   ) {}
   ngOnInit(): void {
     let idVal = this.id?.slice(0, this.id?.indexOf('_'));
@@ -41,6 +43,11 @@ export class ProductDetialsPageComponent implements OnInit, OnDestroy {
         ),
       });
     }
+    this.breakpoint
+      .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
+      .subscribe((result) =>
+        result.matches ? (this.isMobile = true) : (this.isMobile = false)
+      );
   }
   ngOnDestroy(): void {
     this.productSub?.unsubscribe();

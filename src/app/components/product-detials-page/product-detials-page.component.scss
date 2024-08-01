@@ -9,3 +9,9 @@
   width: 100%;
   justify-content: center;
 }
+.product-details-content.isMobile {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: center;
+  justify-content: center;
+}
