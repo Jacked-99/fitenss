@@ -19,6 +19,14 @@ import { RouterModule } from '@angular/router';
   templateUrl: './product-item.component.html',
   styleUrl: './product-item.component.scss',
 })
-export class ProductItemComponent {
+export class ProductItemComponent implements OnInit {
   @Input() productData?: Product;
+  @Input() index?: number;
+
+  stringifiedData?: string;
+  ngOnInit(): void {
+    this.stringifiedData = `${this.index?.toString()}_${
+      this.productData?.name
+    }`;
+  }
 }

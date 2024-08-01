@@ -99,8 +99,7 @@ export class ProductsService {
   }
   getProduct(id: string) {
     return this.http.get<Product>(
-      'https://fitness-page-base-default-rtdb.europe-west1.firebasedatabase.app/Products' +
-        `/${id}.json`
+      `https://fitness-page-base-default-rtdb.europe-west1.firebasedatabase.app/Products/${id}.json`
     );
   }
 }

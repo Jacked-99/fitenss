@@ -1,7 +1,7 @@
 <mat-expansion-panel>
   <mat-expansion-panel-header>
     <mat-panel-title
-      ><a [routerLink]="['./', productData?.name]" class="product-link"
+      ><a [routerLink]="['./', stringifiedData]" class="product-link"
         ><h2>
           {{ productData?.name || "" | titlecase }}
         </h2>

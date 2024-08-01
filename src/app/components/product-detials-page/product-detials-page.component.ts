@@ -13,16 +13,18 @@ import { MatListModule } from '@angular/material/list';
 })
 export class ProductDetialsPageComponent implements OnInit, OnDestroy {
   @Input() id?: string;
+
   productData?: Product;
   productSub?: Subscription;
 
   constructor(private prodeuctService: ProductsService) {}
   ngOnInit(): void {
-    this.productSub = this.prodeuctService._productList.subscribe({
-      next: (value) => {
-        this.productData = value.filter((val) => val.name == this.id)[0];
-      },
-    });
+    let idVal = this.id?.slice(0, this.id?.indexOf('_'));
+    if (idVal) {
+      this.prodeuctService.getProduct(idVal?.toString()).subscribe({
+        next: (val) => (this.productData = val),
+      });
+    }
   }
   ngOnDestroy(): void {
     this.productSub?.unsubscribe();
