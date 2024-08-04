@@ -47,9 +47,10 @@ export class ProductDetialsPageComponent implements OnInit, OnDestroy {
     }
     this.breakpoint
       .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
-      .subscribe((result) =>
-        result.matches ? (this.isMobile = true) : (this.isMobile = false)
-      );
+      .subscribe((result) => {
+        console.log(result);
+        this.isMobile = result.matches;
+      });
   }
   ngOnDestroy(): void {
     this.productSub?.unsubscribe();

@@ -2,16 +2,23 @@
   <h2>{{ productData?.name | titlecase }}</h2>
   <p>ID {{ id }}</p>
   <div>
-    <img
+    <!-- <img
       [src]="productData?.imgSrc || ''"
       [alt]="productData?.name + '_picture' || ''"
       srcset=""
       class="product-img"
-    />
-    <div [class]="'product-details-content' + isMobile ? ' isMobile' : ''">
+    /> -->
+    <mat-divider></mat-divider>
+    <div
+      [class]="
+        isMobile
+          ? 'product-details-content isMobile'
+          : 'product-details-content'
+      "
+    >
       <div>
         <h3>Nutritional data</h3>
-        <mat-divider></mat-divider>
+
         <mat-list>
           <mat-list-item>
             Calories: {{ productData?.nutrients?.calories }}
@@ -31,6 +38,7 @@
         </mat-list>
       </div>
       <div class="product-details-content-chart">
+        <h3>Nutritional breakdown</h3>
         @if (isMobile) {
         <app-toggable-section-temp [title]="'Nutrition chart'">
           <app-chart></app-chart>
@@ -42,5 +50,8 @@
     </div>
     <mat-divider></mat-divider>
   </div>
-  <p>{{ productData?.desc || "" }}</p>
+  <div>
+    <h3>Description</h3>
+    <p>{{ productData?.desc || "" }}</p>
+  </div>
 </app-content-page-temp>

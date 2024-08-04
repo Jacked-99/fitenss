@@ -3,7 +3,7 @@
   <h1>Today is {{ currentDate.toLocaleDateString() }}</h1>
   }
 
-  <div [class]="'calendar-buttons' + isMobile ? ' isMobile' : ''">
+  <div [class]="isMobile ? 'calendar-buttons isMobile' : 'calendar-buttons'">
     <button
       class="calendar-button"
       (click)="changeMonth(-1)"

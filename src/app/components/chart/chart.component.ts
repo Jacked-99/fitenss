@@ -96,8 +96,10 @@ export class ChartComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.chartSub = this.chartService.$chartData.subscribe({
       next: (val) => {
-        this.chartData = val;
-        this.onCreateChart();
+        if (val) {
+          this.chartData = val;
+          this.onCreateChart();
+        }
       },
     });
     // if (!this.chart) {
