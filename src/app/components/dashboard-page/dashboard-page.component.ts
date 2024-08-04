@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { IntakeService } from '../../shared/intake.service';
 import { BehaviorSubject, Subscription, take } from 'rxjs';
 import { Intake } from '../../shared/intake';
-import { UpperCasePipe } from '@angular/common';
+import { NgClass, UpperCasePipe } from '@angular/common';
 import { KeyValuePipe } from '@angular/common';
 import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
 import { DashboardDialogComponent } from '../dashboard-dialog/dashboard-dialog.component';
@@ -14,6 +14,8 @@ import { Product } from '../../shared/product';
 import { chartData, createChartData } from '../../utils/createChartData';
 import { ChartService } from '../../shared/chart.service';
 import { DashboardListComponent } from '../dashboard-list/dashboard-list.component';
+import { ToggableSectionTempComponent } from '../toggable-section-temp/toggable-section-temp.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -27,6 +29,8 @@ import { DashboardListComponent } from '../dashboard-list/dashboard-list.compone
     KeyValuePipe,
     DialogModule,
     DashboardListComponent,
+    ToggableSectionTempComponent,
+    NgClass,
   ],
   templateUrl: './dashboard-page.component.html',
   styleUrl: './dashboard-page.component.scss',
@@ -35,10 +39,12 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
   intakeSub!: Subscription;
   currentCalories: Intake[] = [];
   chartData = new BehaviorSubject([] as chartData[]);
+  isMobile = false;
   constructor(
     private intakeService: IntakeService,
     private dialog: Dialog,
-    private chartServ: ChartService
+    private chartServ: ChartService,
+    private breakpoints: BreakpointObserver
   ) {}
   getChartData() {
     this.chartServ.setChartData(this.currentCalories);
@@ -98,6 +104,11 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.intakeSub = this.intakeService.$currentIntake.subscribe(
       (val) => (this.currentCalories = [...val])
     );
+    this.breakpoints.observe([Breakpoints.Handset]).subscribe({
+      next: (val) => {
+        this.isMobile = val.matches;
+      },
+    });
   }
   ngOnDestroy(): void {
     this.intakeSub.unsubscribe();

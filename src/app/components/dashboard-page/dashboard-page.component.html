@@ -1,15 +1,21 @@
 <app-content-page-temp>
   <h2>Your Dashboard</h2>
   <mat-divider></mat-divider>
-  <div class="dashboard-content">
+  <div
+    [ngClass]="isMobile ? 'dashboard-content isMobile' : 'dashboard-content'"
+  >
     <div class="dashboard-content-list">
       <h3>Current Caloric Intake</h3>
       <app-dashboard-list [nutrList]="currentCalories"></app-dashboard-list>
     </div>
     <div class="dashboard-content-chart">
-      @if (currentCalories.length>0) {
+      @if (!isMobile) { @if (currentCalories.length>0) {
       <app-chart></app-chart>
-      }
+      } } @else { @if (currentCalories.length>0) {
+      <app-toggable-section-temp [title]="'Calories chart'">
+        <app-chart></app-chart>
+      </app-toggable-section-temp>
+      } }
     </div>
   </div>
 
