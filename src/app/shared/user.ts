@@ -1,3 +1,5 @@
 export interface User {
-  id: number;
+  id: string;
+  username: string;
+  online: boolean;
 }

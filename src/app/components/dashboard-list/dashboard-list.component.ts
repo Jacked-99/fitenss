@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { IntakeService } from '../../shared/intake.service';
-import { RoundPipe } from '../../shared/round.pipe';
+import { RoundPipe } from '../../utils/round.pipe';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({

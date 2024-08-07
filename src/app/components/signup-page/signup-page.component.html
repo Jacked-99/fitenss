@@ -1,5 +1,17 @@
 <app-auth-page-temp title="Sign Up">
+  <form [formGroup]="signInForm" class="form-signIn">
+    <mat-form-field>
+      <mat-label>Username</mat-label
+      ><input matInput formControlName="username" type="text" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Passsword</mat-label
+      ><input matInput formControlName="password" type="password" />
+      @If(signInForm){ }
+    </mat-form-field>
+  </form>
   <button
+    [disabled]="signInForm.invalid"
     style="width: 100%"
     mat-raised-button
     color="primary"
