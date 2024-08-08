@@ -1,9 +1,38 @@
 <app-auth-page-temp title="Login">
   <div class="login-content">
+    <form action="" [formGroup]="loginForm" class="form-login">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          formControlName="username"
+          type="text"
+          name=""
+          id="username"
+        />
+        @if(username?.invalid){
+        <mat-error>{{ checkErrors(username) }}</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          name=""
+          id="password"
+        />
+        @if(password?.invalid){
+        <mat-error>{{ checkErrors(password) }}</mat-error>
+        }
+      </mat-form-field>
+    </form>
     <button
+      [disabled]="loginForm.invalid"
       mat-raised-button
       color="primary"
-      aria-label="Login with Google button"
+      aria-label="Login button"
     >
       Login <mat-icon>login</mat-icon>
     </button>

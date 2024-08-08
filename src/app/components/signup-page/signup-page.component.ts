@@ -11,6 +11,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { v4 as uuid } from 'uuid';
+import { User } from '../../shared/user';
+import { UserService } from '../../shared/user.service';
 
 @Component({
   selector: 'app-signup-page',
@@ -37,10 +40,10 @@ export class SignupPageComponent {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(5),
-      Validators.pattern('^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'),
+      Validators.pattern('^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{5,}$'),
     ]),
   });
-
+  constructor(private userService: UserService) {}
   get username() {
     return this.signInForm.get('username');
   }
@@ -57,5 +60,14 @@ export class SignupPageComponent {
     } else {
       return '';
     }
+  }
+  signUpUser() {
+    let newUser: User = {
+      id: uuid(),
+      username: this.username?.value || '',
+      password: this.password?.value || '',
+      online: true,
+    };
+    this.userService.createNewUser(newUser);
   }
 }
