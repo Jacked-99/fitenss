@@ -24,6 +24,8 @@ import { ProductDialogComponent } from '../product-dialog/product-dialog.compone
 import { ProductsService } from '../../shared/products.service';
 import { Subscription } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
+import { UserService } from '../../shared/user.service';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-product-base-page',
@@ -49,13 +51,22 @@ export class ProductBasePageComponent implements OnInit, OnDestroy {
   @ViewChild(MatAccordion) accordion?: MatAccordion;
   productList!: Product[];
   productSub!: Subscription;
-  constructor(public dialog: Dialog, private productService: ProductsService) {}
+  user!: User | null;
+  userSub!: Subscription;
+  constructor(
+    public dialog: Dialog,
+    private productService: ProductsService,
+    private userService: UserService
+  ) {}
   ngOnInit(): void {
     this.productService.getProductData();
     this.productSub = this.productService._productList.subscribe({
       next: (value) => {
         this.productList = value;
       },
+    });
+    this.userSub = this.userService.$user.subscribe({
+      next: (val) => (this.user = val),
     });
   }
 
@@ -97,5 +108,6 @@ export class ProductBasePageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.productSub.unsubscribe();
+    this.userSub.unsubscribe();
   }
 }

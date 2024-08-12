@@ -18,6 +18,7 @@
     </div>
   </form>
   <div style="z-index: 0; position: relative">
+    @if (user) {
     <button
       (click)="onDialogOpen()"
       aria-label="add new product"
@@ -26,6 +27,8 @@
     >
       Add new product
     </button>
+    }
+
     <button
       (click)="accordion?.closeAll()"
       aria-label="collapse all tabs"

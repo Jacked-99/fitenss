@@ -8,9 +8,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { Auth } from '@angular/fire/auth';
 import { UserService } from '../../shared/user.service';
 import { Subscription } from 'rxjs';
+import { User } from '@angular/fire/auth';
 @Component({
   selector: 'app-nav-links',
   standalone: true,
@@ -33,7 +33,7 @@ export class NavLinksComponent implements OnInit, OnDestroy {
   ) {}
   authSub!: Subscription;
   hideSideMenu = true;
-  currentUser = false;
+  currentUser?: User;
   ngOnInit(): void {
     this.breakpoint
       .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
@@ -46,10 +46,16 @@ export class NavLinksComponent implements OnInit, OnDestroy {
       });
     this.authSub = this.auth.$user.subscribe({
       next: (val) =>
-        val ? (this.currentUser = true) : (this.currentUser = false),
+        val ? (this.currentUser = val) : (this.currentUser = undefined),
     });
   }
-  changeUserState() {}
+  changeUserString(val: User | undefined) {
+    if (val) {
+      let string = val.email?.slice(0, val.email.indexOf('@'));
+      return string;
+    }
+    return;
+  }
 
   ngOnDestroy(): void {
     this.breakpoint.ngOnDestroy();

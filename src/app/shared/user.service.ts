@@ -34,6 +34,7 @@ export class UserService {
     signOut(this.auth);
     this.changeUserState();
   }
+
   changeUserState() {
     this.user.next(this.auth.currentUser);
   }
