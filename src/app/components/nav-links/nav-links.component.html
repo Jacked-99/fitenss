@@ -18,7 +18,13 @@
         ><button mat-raised-button color="primary">Login</button></a
       >
       } @else {
-      <h4>{{ changeUserString(currentUser) }}</h4>
+      <div>
+        <h4>{{ changeUserString(currentUser) }}</h4>
+        <button mat-raised-button color="primary" (click)="onLogoutClick()">
+          Logout
+        </button>
+      </div>
+
       }
     </mat-card-content>
   </mat-card>

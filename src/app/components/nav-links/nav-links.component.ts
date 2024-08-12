@@ -56,7 +56,9 @@ export class NavLinksComponent implements OnInit, OnDestroy {
     }
     return;
   }
-
+  onLogoutClick() {
+    this.auth.logoutUser();
+  }
   ngOnDestroy(): void {
     this.breakpoint.ngOnDestroy();
     this.authSub.unsubscribe();
