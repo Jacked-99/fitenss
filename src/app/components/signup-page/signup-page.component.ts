@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { v4 as uuid } from 'uuid';
 import { UserInt } from '../../shared/user';
 import { UserService } from '../../shared/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup-page',
@@ -40,7 +41,7 @@ export class SignupPageComponent {
       Validators.pattern('^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{5,}$'),
     ]),
   });
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
   get email() {
     return this.signInForm.get('email');
   }
@@ -66,5 +67,6 @@ export class SignupPageComponent {
       online: true,
     };
     this.userService.createNewUser(newUser);
+    this.router.navigate(['']);
   }
 }

@@ -10,7 +10,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { UserService } from '../../shared/user.service';
 import { Subscription } from 'rxjs';
-import { User } from '@angular/fire/auth';
+import { Auth, onAuthStateChanged, user, User } from '@angular/fire/auth';
 @Component({
   selector: 'app-nav-links',
   standalone: true,
@@ -29,7 +29,8 @@ import { User } from '@angular/fire/auth';
 export class NavLinksComponent implements OnInit, OnDestroy {
   constructor(
     private breakpoint: BreakpointObserver,
-    private auth: UserService
+    private userS: UserService,
+    private auth: Auth
   ) {}
   authSub!: Subscription;
   hideSideMenu = true;
@@ -44,9 +45,14 @@ export class NavLinksComponent implements OnInit, OnDestroy {
           this.hideSideMenu = true;
         }
       });
-    this.authSub = this.auth.$user.subscribe({
-      next: (val) =>
-        val ? (this.currentUser = val) : (this.currentUser = undefined),
+    onAuthStateChanged(this.auth, (user) => {
+      this.userS.changeUserState();
+    });
+    this.authSub = this.userS.$user.subscribe({
+      next: (val) => {
+        console.log(val);
+        val ? (this.currentUser = val) : (this.currentUser = undefined);
+      },
     });
   }
   changeUserString(val: User | undefined) {
@@ -57,7 +63,7 @@ export class NavLinksComponent implements OnInit, OnDestroy {
     return;
   }
   onLogoutClick() {
-    this.auth.logoutUser();
+    this.userS.logoutUser();
   }
   ngOnDestroy(): void {
     this.breakpoint.ngOnDestroy();
