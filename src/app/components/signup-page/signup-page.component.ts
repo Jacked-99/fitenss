@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { v4 as uuid } from 'uuid';
-import { User } from '../../shared/user';
+import { UserInt } from '../../shared/user';
 import { UserService } from '../../shared/user.service';
 
 @Component({
@@ -33,10 +33,7 @@ export class SignupPageComponent {
   passwordError = signal('');
 
   signInForm = new FormGroup({
-    username: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5),
-    ]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(5),
@@ -44,8 +41,8 @@ export class SignupPageComponent {
     ]),
   });
   constructor(private userService: UserService) {}
-  get username() {
-    return this.signInForm.get('username');
+  get email() {
+    return this.signInForm.get('email');
   }
   get password() {
     return this.signInForm.get('password');
@@ -62,9 +59,9 @@ export class SignupPageComponent {
     }
   }
   signUpUser() {
-    let newUser: User = {
+    let newUser: UserInt = {
       id: uuid(),
-      username: this.username?.value || '',
+      username: this.email?.value || '',
       password: this.password?.value || '',
       online: true,
     };

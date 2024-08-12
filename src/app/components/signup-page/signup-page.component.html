@@ -1,10 +1,10 @@
 <app-auth-page-temp title="Sign Up">
   <form [formGroup]="signInForm" class="form-signIn">
     <mat-form-field>
-      <mat-label>Username</mat-label
-      ><input matInput formControlName="username" type="text" />
-      @if(username?.invalid){
-      <mat-error>{{ checkErrors(username) }}</mat-error>
+      <mat-label>Email</mat-label
+      ><input matInput formControlName="email" type="text" />
+      @if(email?.invalid){
+      <mat-error>{{ checkErrors(email) }}</mat-error>
       }
     </mat-form-field>
     <mat-form-field>

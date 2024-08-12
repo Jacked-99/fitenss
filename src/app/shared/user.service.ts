@@ -1,34 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from './user';
-import { take } from 'rxjs';
+import { UserInt } from './user';
+import { BehaviorSubject, Subject, take } from 'rxjs';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  User,
+} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private auth: Auth) {}
+  user = new Subject<User | null>();
+  public readonly $user = this.user.asObservable();
 
-  createNewUser(userData: User) {
-    this.http
-      .post(
-        `https://fitness-page-base-default-rtdb.europe-west1.firebasedatabase.app/Users/${userData.id}.json`,
-        JSON.stringify(userData)
-      )
-      .pipe(take(1))
-      .subscribe({
-        next: (response) => console.log(response),
-        error: (err) => console.log(err.message),
-      });
+  createNewUser(userData: UserInt) {
+    createUserWithEmailAndPassword(
+      this.auth,
+      userData.username,
+      userData.password
+    );
+    this.changeUserState();
   }
-  loginUser(userData: User) {
-    this.http
-      .patch(
-        `https://fitness-page-base-default-rtdb.europe-west1.firebasedatabase.app/Users/${userData.id}.json`,
-        JSON.stringify(userData)
-      )
-      .pipe(take(1))
-      .subscribe((res) => console.log(res));
+  loginUser(userData: UserInt) {
+    signInWithEmailAndPassword(this.auth, userData.username, userData.password);
+    this.changeUserState();
   }
-  logoutUser() {}
+  logoutUser() {
+    signOut(this.auth);
+    this.changeUserState();
+  }
+  changeUserState() {
+    this.user.next(this.auth.currentUser);
+  }
 }

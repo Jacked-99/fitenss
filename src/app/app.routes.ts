@@ -6,10 +6,15 @@ import { ProductBasePageComponent } from './components/product-base-page/product
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { SignupPageComponent } from './components/signup-page/signup-page.component';
 import { ProductDetialsPageComponent } from './components/product-detials-page/product-detials-page.component';
+import { authGuard } from './utils/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: DashboardPageComponent },
-  { path: 'calendar', component: CalendarPageComponent },
+  {
+    path: 'calendar',
+    component: CalendarPageComponent,
+    canActivate: [authGuard],
+  },
   {
     path: 'products',
     component: ProductBasePageComponent,
