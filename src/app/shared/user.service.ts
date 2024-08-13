@@ -15,7 +15,7 @@ import {
 })
 export class UserService {
   constructor(private http: HttpClient, private auth: Auth) {}
-  user = new Subject<User | null>();
+  private user = new Subject<User | null>();
   public readonly $user = this.user.asObservable();
 
   createNewUser(userData: UserInt) {

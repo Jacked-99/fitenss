@@ -16,6 +16,8 @@ import { ChartService } from '../../shared/chart.service';
 import { DashboardListComponent } from '../dashboard-list/dashboard-list.component';
 import { ToggableSectionTempComponent } from '../toggable-section-temp/toggable-section-temp.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Auth } from '@angular/fire/auth';
+import { UserService } from '../../shared/user.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -44,7 +46,9 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     private intakeService: IntakeService,
     private dialog: Dialog,
     private chartServ: ChartService,
-    private breakpoints: BreakpointObserver
+    private breakpoints: BreakpointObserver,
+    private auth: Auth,
+    private user: UserService
   ) {}
   getChartData() {
     this.chartServ.setChartData(this.currentCalories);
@@ -107,6 +111,11 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     this.breakpoints.observe([Breakpoints.Handset]).subscribe({
       next: (val) => {
         this.isMobile = val.matches;
+      },
+    });
+    this.user.$user.pipe(take(1)).subscribe({
+      next: (val) => {
+        this.intakeService.setData();
       },
     });
   }

@@ -50,7 +50,6 @@ export class NavLinksComponent implements OnInit, OnDestroy {
     });
     this.authSub = this.userS.$user.subscribe({
       next: (val) => {
-        console.log(val);
         val ? (this.currentUser = val) : (this.currentUser = undefined);
       },
     });
