@@ -18,6 +18,7 @@ import { ToggableSectionTempComponent } from '../toggable-section-temp/toggable-
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Auth } from '@angular/fire/auth';
 import { UserService } from '../../shared/user.service';
+import { ProductsService } from '../../shared/products.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -47,7 +48,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     private dialog: Dialog,
     private chartServ: ChartService,
     private breakpoints: BreakpointObserver,
-    private auth: Auth,
+    private products: ProductsService,
     private user: UserService
   ) {}
   getChartData() {
@@ -105,21 +106,24 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     return Object.keys(this.currentCalories[0]);
   }
   ngOnInit(): void {
-    this.intakeSub = this.intakeService.$currentIntake.subscribe(
-      (val) => (this.currentCalories = [...val])
-    );
-    this.breakpoints.observe([Breakpoints.Handset]).subscribe({
-      next: (val) => {
-        this.isMobile = val.matches;
-      },
-    });
+    this.products.getProductData();
     this.user.$user.pipe(take(1)).subscribe({
       next: (val) => {
         this.intakeService.setData();
       },
     });
+    this.intakeSub = this.intakeService.$currentIntake.subscribe((val) => {
+      this.currentCalories = [...val];
+      this.getChartData();
+    });
+    this.breakpoints.observe([Breakpoints.Handset]).subscribe({
+      next: (val) => {
+        this.isMobile = val.matches;
+      },
+    });
   }
   ngOnDestroy(): void {
     this.intakeSub.unsubscribe();
+    this.breakpoints.ngOnDestroy();
   }
 }
