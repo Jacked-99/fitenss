@@ -41,17 +41,18 @@ export class IntakeService {
     }
     this.dbService.setData(this._currentIntake.value);
   }
-  onCaloriesRemove(productName: string) {
+  onCaloriesRemove(productIndex: number) {
     this._currentIntake
       .pipe(
         map((newDataArray) =>
-          newDataArray.filter((el) => el.product !== productName)
+          newDataArray.filter((el) => newDataArray.indexOf(el) != productIndex)
         ),
         take(1)
       )
       .subscribe((val) => this._currentIntake.next([...val]));
     // console.log(fillteredArray);
     // this._currentIntake.next([...fillteredArray.value]);
+    this.dbService.removeData(productIndex);
   }
 }
 //Users/user.email//intake//date:<Intake>{}

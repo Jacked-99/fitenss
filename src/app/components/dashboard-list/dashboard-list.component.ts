@@ -29,7 +29,7 @@ export class DashboardListComponent {
   constructor(private intake: IntakeService) {}
   @Input() nutrList: Intake[] = [];
   closedState = true;
-  onDeleteItemClick(name: string) {
-    this.intake.onCaloriesRemove(name);
+  onDeleteItemClick(index: number) {
+    this.intake.onCaloriesRemove(index);
   }
 }

@@ -7,6 +7,7 @@ import {
   getDatabase,
   onValue,
   ref,
+  remove,
   set,
   update,
 } from '@angular/fire/database';
@@ -95,7 +96,6 @@ export class DatabaseIntakeService {
     //   });
     // }
   }
-  removeData() {}
   getMonthlyData() {
     if (this.auth.currentUser) {
       let userChunck = this.auth.currentUser?.email?.slice(
@@ -107,5 +107,16 @@ export class DatabaseIntakeService {
     } else {
       return;
     }
+  }
+
+  removeData(index: number) {
+    let userChunck = this.auth.currentUser?.email?.slice(
+      0,
+      this.auth.currentUser.email.indexOf('@')
+    );
+
+    remove(
+      ref(this.db, `Users/${userChunck}/${this.stringDate}/${index}`)
+    ).then((snapshot) => {});
   }
 }
