@@ -75,7 +75,11 @@ export class CalendarDisplayComponent implements OnInit {
     if (this.caloriesArray) {
       let specDay = this.caloriesArray.filter((val) => {
         let day = val.date.slice(0, 2);
-        if (Number(day) == dayValue) {
+        let month = val.date.slice(2, 4);
+        if (
+          Number(day) == dayValue &&
+          Number(month) == this.newDate.getMonth() + 1
+        ) {
           return true;
         } else {
           return false;
