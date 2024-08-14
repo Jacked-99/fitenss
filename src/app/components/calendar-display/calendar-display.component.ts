@@ -13,6 +13,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { dateCalArray } from '../calendar-page/calendar-page.component';
 
 @Component({
   selector: 'app-calendar-display',
@@ -47,7 +48,7 @@ export class CalendarDisplayComponent implements OnInit {
   @Input() newDate: Date = new Date();
   @Input() monthName = '';
   @Input() isMobile = false;
-
+  @Input() caloriesArray!: dateCalArray[];
   numOfDays = 0;
   today = new Date().getDate();
   month = this.newDate.getMonth() + 1;
@@ -68,6 +69,26 @@ export class CalendarDisplayComponent implements OnInit {
       return true;
     } else {
       return false;
+    }
+  }
+  getCalories(dayValue: number) {
+    if (this.caloriesArray) {
+      let specDay = this.caloriesArray.filter((val) => {
+        let day = val.date.slice(0, 2);
+        if (Number(day) == dayValue) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      if (specDay.length > 0) {
+        return Math.round(specDay[0].calories);
+      } else {
+        return 0;
+      }
+    } else {
+      return;
     }
   }
   ngOnInit(): void {
