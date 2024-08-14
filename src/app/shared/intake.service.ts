@@ -12,7 +12,7 @@ export class IntakeService {
   constructor(private dbService: DatabaseIntakeService) {}
   setData() {
     this.dbService.getData()?.then((snapshot) => {
-      if (snapshot) {
+      if (snapshot.exists()) {
         this._currentIntake.next(snapshot.val());
       }
     });
