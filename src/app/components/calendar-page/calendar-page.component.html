@@ -27,5 +27,12 @@
     [isMobile]="isMobile"
     [newDate]="dateVal"
     [caloriesArray]="itemsArrray"
+    (dateCalories)="setDateCalories($event)"
   ></app-calendar-display>
+  <mat-divider></mat-divider>
+  @if (mobileCalorieValue().visible) {
+  <p class="calendar-mobile-calories">
+    Calories: {{ mobileCalorieValue().value }}
+  </p>
+  }
 </app-content-page-temp>

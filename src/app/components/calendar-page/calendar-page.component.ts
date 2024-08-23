@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { ContentPageTempComponent } from '../content-page-temp/content-page-temp.component';
 import { CalendarDisplayComponent } from '../calendar-display/calendar-display.component';
 import { MatIcon } from '@angular/material/icon';
@@ -8,6 +8,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DatabaseIntakeService } from '../../shared/database-intake.service';
 import { Intake } from '../../shared/intake';
 import { retry } from 'rxjs';
+import { MatDivider } from '@angular/material/divider';
 
 export interface dateCalArray {
   date: string;
@@ -22,6 +23,7 @@ export interface dateCalArray {
     MatIcon,
     MatIconButton,
     TitleCasePipe,
+    MatDivider,
   ],
   templateUrl: './calendar-page.component.html',
   styleUrl: './calendar-page.component.scss',
@@ -35,6 +37,8 @@ export class CalendarPageComponent implements OnInit {
   today = this.currentDate.getDate();
   isMobile = false;
   itemsArrray!: dateCalArray[];
+
+  mobileCalorieValue = signal({ visible: false, value: 0 });
 
   constructor(
     private breakpoint: BreakpointObserver,
@@ -94,5 +98,8 @@ export class CalendarPageComponent implements OnInit {
         return false;
       }
     });
+  }
+  setDateCalories($event: number) {
+    this.mobileCalorieValue.set({ value: $event, visible: true });
   }
 }

@@ -49,6 +49,7 @@ export class CalendarDisplayComponent implements OnInit {
   @Input() monthName = '';
   @Input() isMobile = false;
   @Input() caloriesArray!: dateCalArray[];
+  @Output() dateCalories = new EventEmitter<number>();
   numOfDays = 0;
   today = new Date().getDate();
   month = this.newDate.getMonth() + 1;
@@ -92,8 +93,11 @@ export class CalendarDisplayComponent implements OnInit {
         return 0;
       }
     } else {
-      return;
+      return 0;
     }
+  }
+  onDotClick($event: number) {
+    this.dateCalories.emit($event);
   }
   ngOnInit(): void {
     this.breakpoint

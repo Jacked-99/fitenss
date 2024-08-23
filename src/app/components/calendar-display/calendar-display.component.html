@@ -27,7 +27,14 @@
         isMobile ? 'grid-element-content isMobile' : 'grid-element-content'
       "
     >
+      @if (isMobile) { @if (getCalories(day)>0) {
+      <span
+        (click)="onDotClick(getCalories(day))"
+        class="grid-element-span"
+      ></span
+      >} }@else{
       <p class="grid-element-text">Calories:{{ getCalories(day) }}</p>
+      }
     </div>
   </mat-grid-tile>
   }

@@ -114,7 +114,7 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     });
     this.intakeSub = this.intakeService.$currentIntake.subscribe((val) => {
       this.currentCalories = [...val];
-      this.getChartData();
+      this.chartServ.setChartData(val);
     });
     this.breakpoints.observe([Breakpoints.Handset]).subscribe({
       next: (val) => {
