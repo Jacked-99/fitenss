@@ -14,7 +14,7 @@ This is project is more for my personal use. This is caloire tracker. It counts 
 
 ## Build With
 
-[Angular CLI](https://github.com/angular/angular-cli) version 17.1.2 of course 😉
+[Angular CLI](https://github.com/angular/angular-cli) version 17.1.2, of course 😉
 [RxJS](https://rxjs.dev/) Essential
 [Angular Material](https://material.angular.io/)
 [Chart JS](https://www.chartjs.org/) Used for beautyfull charts
